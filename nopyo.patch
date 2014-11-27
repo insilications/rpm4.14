@@ -1,0 +1,21 @@
+Python -O is completely useless, lets reduce the amount of python stuff we ship
+
+--- rpm-4.12.0.1/scripts/brp-python-bytecompile~	2014-06-30 04:47:14.000000000 -0400
++++ rpm-4.12.0.1/scripts/brp-python-bytecompile	2015-07-18 19:50:54.794600309 -0400
+@@ -48,11 +48,11 @@
+ 	fi
+ 
+ 	# Generate optimized (.pyo) byte-compiled files.
+-	$python_binary -O -c 'import compileall, sys; sys.exit(not compileall.compile_dir("'"$python_libdir"'", '"$depth"', "'"$real_libdir"'", force=1, quiet=1))'
+-	if [ $? -ne 0 -a 0$errors_terminate -ne 0 ]; then
+-		# One or more of the files had a syntax error
+-		exit 1
+-	fi
++	#$python_binary -O -c 'import compileall, sys; sys.exit(not compileall.compile_dir("'"$python_libdir"'", '"$depth"', "'"$real_libdir"'", force=1, quiet=1))'
++	#if [ $? -ne 0 -a 0$errors_terminate -ne 0 ]; then
++	#	# One or more of the files had a syntax error
++	#	exit 1
++	#fi
+ done
+ 
+ 
