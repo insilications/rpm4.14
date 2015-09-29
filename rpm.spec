@@ -2,7 +2,7 @@
 
 Name:           rpm
 Version:        4.12.0.1
-Release:        27
+Release:        28
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
