@@ -9,3 +9,14 @@
  
  %_dbi_config			%{?__dbi_other}
  
+--- rpm-4.12.0.1/lib/rpmdb.c~	2014-07-03 14:45:32.000000000 +0000
++++ rpm-4.12.0.1/lib/rpmdb.c	2016-03-25 15:24:01.299055328 +0000
+@@ -151,7 +151,7 @@
+ 	    db->db_checked = dbChkCreate(567, uintId, uintCmp, NULL, NULL);
+ 	}
+ 	/* If primary got created, we can safely run without fsync */
+-	if ((!verifyonly && (dbiFlags(dbi) & DBI_CREATED)) || db->cfg.db_no_fsync) {
++	if ((!verifyonly && (dbiFlags(dbi) & DBI_CREATED)) || db->cfg.db_no_fsync || 1) {
+ 	    rpmlog(RPMLOG_DEBUG, "disabling fsync on database\n");
+ 	    db->cfg.db_no_fsync = 1;
+ 	    dbSetFSync(db->db_dbenv, 0);
