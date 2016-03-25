@@ -1,0 +1,11 @@
+--- rpm-4.12.0.1/macros.in~	2014-06-30 08:47:13.000000000 +0000
++++ rpm-4.12.0.1/macros.in	2016-03-25 14:58:38.829218422 +0000
+@@ -517,7 +517,7 @@
+ #
+ 
+ # Misc BDB tuning options
+-%__dbi_other			mp_mmapsize=128Mb mp_size=1Mb
++%__dbi_other			mp_mmapsize=128Mb mp_size=1Mb nofsync
+ 
+ %_dbi_config			%{?__dbi_other}
+ 
