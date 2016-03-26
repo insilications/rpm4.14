@@ -7,7 +7,7 @@ License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
 Group:          base
-Source0:        http://rpm.org/releases/rpm-4.12.x/%{name}-%{version}.tar.bz2
+Source0:        http://rpm.org/releases/rpm-4.12.x/rpm-4.12.0.1.tar.bz2
 Patch0:         0001-Explicitly-set-beecrypt-include-directory.patch
 Patch1:         0002-Ensure-lib-is-used-and-not-lib64.patch
 Patch2:         0003-debuginfo-do-not-strip-static-libraries.patch
