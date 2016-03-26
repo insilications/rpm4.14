@@ -2,7 +2,7 @@
 
 Name:           rpm
 Version:        4.12.0.1
-Release:        32
+Release:        33
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -18,7 +18,6 @@ Patch8:         0008-build-id-non-fatal.patch
 Patch9:         ldconfig-posttrans.patch
 Patch10:        minidebuginfo.patch
 Patch11:	nopyo.patch
-Patch12: nofsync.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev
@@ -144,7 +143,6 @@ This package contains language translation files for rpm package.
 %patch9 -p1
 # %patch10 -p1
 %patch11 -p1
-%patch12 -p1
 
 
 %build
