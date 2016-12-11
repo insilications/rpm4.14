@@ -2,7 +2,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        40
+Release:        41
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -144,6 +144,7 @@ This package contains language translation files for rpm package.
 %patch9 -p1
 # %patch10 -p1
 %patch11 -p1
+%patch12 -p1
 
 
 %build
