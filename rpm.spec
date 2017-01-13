@@ -19,6 +19,7 @@ Patch9:         ldconfig-posttrans.patch
 Patch10:        minidebuginfo.patch
 Patch11:	nopyo.patch
 patch12:	lib32.patch
+patch13:	py3.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev
@@ -41,6 +42,7 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  libtool autoconf m4 gettext-dev autoconf pkg-config-dev
 BuildRequires:	bison flex
+BuildRequires:  python3-dev
 
 
 %description
@@ -145,9 +147,10 @@ This package contains language translation files for rpm package.
 # %patch10 -p1
 %patch11 -p1
 %patch12 -p1
-
+%patch13 -p1
 
 %build
+export PYTHON=/usr/bin/python3
 autoreconf -fi
 %configure \
  --sysconfdir=%{_sysconfdir} \
@@ -288,10 +291,6 @@ make check
 %files -n python-rpm-dev
 
 %files -n python-rpm
-/usr/lib/python2.7/site-packages/rpm/__init__.py
-/usr/lib/python2.7/site-packages/rpm/_rpm.so
-/usr/lib/python2.7/site-packages/rpm/_rpmb.so
-/usr/lib/python2.7/site-packages/rpm/_rpms.so
-/usr/lib/python2.7/site-packages/rpm/transaction.py
+/usr/lib/python*
 
 %files -n rpm-locale -f %{name}.lang
