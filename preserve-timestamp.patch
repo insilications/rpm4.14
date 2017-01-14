@@ -9,3 +9,39 @@
    chmod 444 "$1" || exit
  }
  
+--- rpm-4.12.0.1/scripts/brp-strip~	2014-06-30 08:47:14.000000000 +0000
++++ rpm-4.12.0.1/scripts/brp-strip	2017-01-14 03:20:21.031445806 +0000
+@@ -16,5 +16,5 @@
+         grep -v "^${RPM_BUILD_ROOT}/\?usr/lib/debug"  | \
+ 	grep -v ' shared object,' | \
+ 	sed -n -e 's/^\(.*\):[ 	]*ELF.*, not stripped/\1/p'`; do
+-	$STRIP -g "$f" || :
++	$STRIP -p -g "$f" || :
+ done
+--- rpm-4.12.0.1/scripts/brp-strip-comment-note~	2014-06-30 08:47:14.000000000 +0000
++++ rpm-4.12.0.1/scripts/brp-strip-comment-note	2017-01-14 03:20:23.071423616 +0000
+@@ -22,5 +22,5 @@
+ 		grep ALLOC >/dev/null; then
+ 		note=
+ 	fi
+-	$STRIP -R .comment $note "$f" || :
++	$STRIP -p -R .comment $note "$f" || :
+ done
+--- rpm-4.12.0.1/scripts/brp-strip-shared~	2014-06-30 08:47:14.000000000 +0000
++++ rpm-4.12.0.1/scripts/brp-strip-shared	2017-01-14 03:20:25.450397730 +0000
+@@ -21,5 +21,5 @@
+         grep -v "^${RPM_BUILD_ROOT}/\?usr/lib/debug"  | \
+ 	grep ' shared object,' | \
+ 	sed -n -e 's/^\(.*\):[ 	]*ELF.*, not stripped/\1/p'`; do
+-	$STRIP --strip-unneeded "$f"
++	$STRIP -p --strip-unneeded "$f"
+ done
+--- rpm-4.12.0.1/scripts/brp-strip-static-archive~	2014-06-30 08:47:14.000000000 +0000
++++ rpm-4.12.0.1/scripts/brp-strip-static-archive	2017-01-14 03:20:27.955370478 +0000
+@@ -16,5 +16,5 @@
+         grep -v "^${RPM_BUILD_ROOT}/\?usr/lib/debug"  | \
+ 	grep 'current ar archive' | \
+ 	sed -n -e 's/^\(.*\):[ 	]*current ar archive/\1/p'`; do
+-	$STRIP -g "$f"
++	$STRIP -p -g "$f"
+ done
