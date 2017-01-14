@@ -2,7 +2,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        46
+Release:        47
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -150,7 +150,6 @@ This package contains language translation files for rpm package.
 %patch13 -p1
 
 %build
-export PYTHON=/usr/bin/python3
 autoreconf -fi
 %configure \
  --sysconfdir=%{_sysconfdir} \
@@ -171,6 +170,26 @@ make %{?_smp_mflags}
 
 %install
 %make_install
+make clean
+export PYTHON=/usr/bin/python3
+%configure \
+ --sysconfdir=%{_sysconfdir} \
+ --localstatedir=%{_localstatedir} \
+ --with-external-db \
+ --with-acl \
+ --program-prefix= \
+ --enable-nls \
+ --without-beecrypt \
+ --without-internal-beecrypt \
+ --without-lua \
+ --enable-python \
+ --without-selinux \
+ --libdir=/usr/lib64 \
+ CPPFLAGS="-I/usr/include/nss3"
+
+make  %{?_smp_mflags}
+%make_install
+
 
 # Make rpm accessible in usrbin
 #mv %{buildroot}/bin/rpm %{buildroot}%{_bindir}/rpm
