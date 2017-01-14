@@ -1,0 +1,11 @@
+--- rpm-4.12.0.1/scripts/find-debuginfo.sh~	2014-06-30 08:47:14.000000000 +0000
++++ rpm-4.12.0.1/scripts/find-debuginfo.sh	2017-01-14 03:12:35.163513956 +0000
+@@ -101,7 +101,7 @@
+   $strip_g && case "$(file -bi "$2")" in
+   application/x-sharedlib*) g=-g ;;
+   esac
+-  eu-strip --remove-comment $r $g -f "$1" "$2" || exit
++  eu-strip -p --remove-comment $r $g -f "$1" "$2" || exit
+   chmod 444 "$1" || exit
+ }
+ 
