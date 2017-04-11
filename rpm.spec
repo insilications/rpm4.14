@@ -21,7 +21,7 @@ Patch11:	nopyo.patch
 patch12:	lib32.patch
 patch13:	py3.patch
 Patch14:	preserve-timestamp.patch
-Patch15:        no fdatasync.patch
+Patch15:        nofdatasync.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev
