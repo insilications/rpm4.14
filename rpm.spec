@@ -2,7 +2,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        53
+Release:        54
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -21,6 +21,7 @@ Patch11:	nopyo.patch
 patch12:	lib32.patch
 patch13:	py3.patch
 Patch14:	preserve-timestamp.patch
+Patch15:        no fdatasync.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev
@@ -152,6 +153,7 @@ This package contains language translation files for rpm package.
 %patch12 -p1
 %patch13 -p1
 %patch14 -p1
+%patch15 -p1
 
 %build
 autoreconf -fi
