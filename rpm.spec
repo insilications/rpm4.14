@@ -2,7 +2,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        59
+Release:        60
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -17,12 +17,14 @@ Patch7:         0001-fileattrs-Ensure-we-match-all-binaries-for-elf-depen.patch
 Patch8:         0008-build-id-non-fatal.patch
 Patch9:         ldconfig-posttrans.patch
 Patch10:        minidebuginfo.patch
-Patch11:	nopyo.patch
-patch12:	lib32.patch
-patch13:	py3.patch
-Patch14:	preserve-timestamp.patch
+Patch11:        nopyo.patch
+patch12:        lib32.patch
+patch13:        py3.patch
+Patch14:        preserve-timestamp.patch
 Patch15:        nofdatasync.patch
 Patch16:        build-with-localhost-hostname.patch
+Patch17:        0001-Add-RPMCALLBACK_ELEM_PROGRESS-callback-type.patch
+Patch18:        0002-Move-RPMCALLBACK_ELEM_PROGRESS-to-rpmteProcess-to-ha.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev
@@ -156,6 +158,8 @@ This package contains language translation files for rpm package.
 %patch14 -p1
 %patch15 -p1
 %patch16 -p1
+%patch17 -p1
+%patch18 -p1
 
 %build
 autoreconf -fi
