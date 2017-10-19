@@ -35,3 +35,14 @@ Python -O is completely useless, lets reduce the amount of python stuff we ship
 +#	exit 1
 +#fi
  exit 0
+--- rpm-4.12.0.1//scripts/brp-python-hardlink~	2014-06-30 08:47:14.000000000 +0000
++++ rpm-4.12.0.1//scripts/brp-python-hardlink	2017-10-19 10:09:23.703125859 +0000
+@@ -5,6 +5,8 @@
+ 	exit 0
+ fi
+ 
++exit 0
++
+ # Hardlink identical *.pyc and *.pyo, originally from PLD's rpm-build-macros
+ # Modified to use sha1sum instead of cmp to avoid a diffutils dependency.
+ find "$RPM_BUILD_ROOT" -type f -name "*.pyc" | while read pyc ; do
