@@ -28,8 +28,8 @@ Python -O is completely useless, lets reduce the amount of python stuff we ship
 -	# One or more of the files had a syntax error
 -	exit 1
 -fi
-+$python2 --c 'import compileall, re, sys; sys.exit(not compileall.compile_dir("'"$RPM_BUILD_ROOT"'", '"$depth"', "/", 1, re.compile(r"'"/bin/|/sbin/|/usr/lib(64)?/python2[0-9]\.[0-9]"'"), quiet=1))' > /dev/null
-+$python3 --c 'import compileall, re, sys; sys.exit(not compileall.compile_dir("'"$RPM_BUILD_ROOT"'", '"$depth"', "/", 1, re.compile(r"'"/bin/|/sbin/|/usr/lib(64)?/python3[0-9]\.[0-9]"'"), quiet=1))' > /dev/null
++#$python2 --c 'import compileall, re, sys; sys.exit(not compileall.compile_dir("'"$RPM_BUILD_ROOT"'", '"$depth"', "/", 1, re.compile(r"'"/bin/|/sbin/|/usr/lib(64)?/python2[0-9]\.[0-9]"'"), quiet=1))' > /dev/null
++#$python3 --c 'import compileall, re, sys; sys.exit(not compileall.compile_dir("'"$RPM_BUILD_ROOT"'", '"$depth"', "/", 1, re.compile(r"'"/bin/|/sbin/|/usr/lib(64)?/python3[0-9]\.[0-9]"'"), quiet=1))' > /dev/null
 +#if [ $? -ne 0 -a 0$errors_terminate -ne 0 ]; then
 +#	# One or more of the files had a syntax error
 +#	exit 1
