@@ -2,7 +2,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        63
+Release:        64
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -25,6 +25,7 @@ Patch15:        nofdatasync.patch
 Patch16:        build-with-localhost-hostname.patch
 Patch17:        0001-Add-RPMCALLBACK_ELEM_PROGRESS-callback-type.patch
 Patch18:        0002-Move-RPMCALLBACK_ELEM_PROGRESS-to-rpmteProcess-to-ha.patch
+Patch19:	fflush.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev
@@ -160,6 +161,7 @@ This package contains language translation files for rpm package.
 %patch16 -p1
 %patch17 -p1
 %patch18 -p1
+%patch19 -p1
 
 %build
 autoreconf -fi
