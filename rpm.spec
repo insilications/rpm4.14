@@ -2,7 +2,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        65
+Release:        66
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -185,7 +185,7 @@ make %{?_smp_mflags}
 %install
 %make_install
 make clean
-export PYTHON=/usr/bin/python3
+export PYTHON=/usr/bin/python2
 %configure \
  --sysconfdir=%{_sysconfdir} \
  --localstatedir=%{_localstatedir} \
