@@ -1,8 +1,10 @@
 %global __os_install_post %{nil}
 
+%define debug_package %{nil}
+
 Name:           rpm
 Version:        4.12.0.2
-Release:        68
+Release:        69
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
