@@ -4,7 +4,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        70
+Release:        71
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -132,6 +132,17 @@ Requires:       %{name} = %{version}
 Requires:       rpm-libs = %{version}
 
 %description -n python-rpm
+The rpm-python package contains a module that permits applications written
+in the Python programming language to use the interface supplied by the RPM
+Package Manager libraries.
+%package -n python-rpm-legacypython
+License:        LGPL-2.1
+Summary:        Python bindings for apps which will manupulate RPM packages
+Group:          base
+Requires:       %{name} = %{version}
+Requires:       rpm-libs = %{version}
+
+%description -n python-rpm-legacypython
 The rpm-python package contains a module that permits applications written
 in the Python programming language to use the interface supplied by the RPM
 Package Manager libraries.
@@ -326,6 +337,8 @@ make check
 %files -n python-rpm-dev
 
 %files -n python-rpm
-/usr/lib/python*
+/usr/lib/python3*
+%files -n python-rpm-legacypython
+/usr/lib/python2*
 
 %files -n rpm-locale -f %{name}.lang
