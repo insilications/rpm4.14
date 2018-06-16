@@ -4,7 +4,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        73
+Release:        74
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -45,7 +45,6 @@ BuildRequires:  popt-dev
 BuildRequires:	gettext 
 BuildRequires:  automake automake-dev
 BuildRequires:  libtool-dev
-BuildRequires:  pkgconfig(python2)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  libtool autoconf m4 gettext-dev autoconf pkg-config-dev
