@@ -4,7 +4,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        72
+Release:        73
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -38,7 +38,7 @@ BuildRequires:  attr-dev
 BuildRequires:  nss-dev nspr-dev
 BuildRequires:  libstdc++-dev
 BuildRequires:  openssl-dev
-BuildRequires:  python-modules
+BuildRequires:  python3-core
 BuildRequires:  xz-dev
 BuildRequires:  pkgconfig(libpcre)
 BuildRequires:  popt-dev
@@ -132,17 +132,6 @@ Requires:       %{name} = %{version}
 Requires:       rpm-libs = %{version}
 
 %description -n python-rpm
-The rpm-python package contains a module that permits applications written
-in the Python programming language to use the interface supplied by the RPM
-Package Manager libraries.
-%package -n python-rpm-legacypython
-License:        LGPL-2.1
-Summary:        Python bindings for apps which will manupulate RPM packages
-Group:          base
-Requires:       %{name} = %{version}
-Requires:       rpm-libs = %{version}
-
-%description -n python-rpm-legacypython
 The rpm-python package contains a module that permits applications written
 in the Python programming language to use the interface supplied by the RPM
 Package Manager libraries.
