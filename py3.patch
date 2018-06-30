@@ -5,7 +5,7 @@
      CPPFLAGS="$save_CPPFLAGS"
      save_LIBS="$LIBS"
 -    AC_SEARCH_LIBS([Py_Main],[python${PYTHON_VERSION} python],[
-+    AC_SEARCH_LIBS([Py_Main],[python${PYTHON_VERSION} python3 python3.6m python],[
++    AC_SEARCH_LIBS([Py_Main],[python${PYTHON_VERSION} python3 python3.7m python],[
        WITH_PYTHON_LIB="$ac_res"
      ],[AC_MSG_ERROR([missing python library])
      ])

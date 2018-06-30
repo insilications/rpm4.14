@@ -49,7 +49,7 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(libarchive)
 BuildRequires:  libtool autoconf m4 gettext-dev autoconf pkg-config-dev
 BuildRequires:	bison flex
-BuildRequires:  python3-dev
+BuildRequires:  python3-dev python-dev
 
 Requires: zip unzip
 
