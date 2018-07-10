@@ -106,6 +106,7 @@ Requires:       elfutils
 Requires:       file-dev
 Requires:       findutils
 Requires:       rpm-libs = %{version}
+Requires:       debugedit
 
 %description -n rpm-build
 The rpm-build packagec ontains the scripts and executable programs that are
