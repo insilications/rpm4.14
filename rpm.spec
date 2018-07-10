@@ -4,7 +4,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        78
+Release:        79
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -259,7 +259,7 @@ make check
 /usr/lib/rpm/check-*
 /usr/lib/rpm/config.guess
 /usr/lib/rpm/config.sub
-/usr/lib/rpm/debugedit
+%exclude /usr/lib/rpm/debugedit
 /usr/lib/rpm/desktop-file.prov
 /usr/lib/rpm/elfdeps
 /usr/lib/rpm/fileattrs/appdata.attr
