@@ -4,7 +4,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        79
+Release:        80
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -28,6 +28,7 @@ Patch16:        build-with-localhost-hostname.patch
 Patch17:        0001-Add-RPMCALLBACK_ELEM_PROGRESS-callback-type.patch
 Patch18:        0002-Move-RPMCALLBACK_ELEM_PROGRESS-to-rpmteProcess-to-ha.patch
 Patch19:	fflush.patch
+Patch20:	0002-fileattrs-Don-t-scan-libraries-in-glibc-auto-search-.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev
@@ -164,6 +165,7 @@ This package contains language translation files for rpm package.
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
+%patch20 -p1
 
 %build
 autoreconf -fi
@@ -266,6 +268,7 @@ make check
 /usr/lib/rpm/fileattrs/appdata.attr
 /usr/lib/rpm/fileattrs/desktop.attr
 /usr/lib/rpm/fileattrs/elf.attr
+/usr/lib/rpm/fileattrs/elfoptimized.attr
 /usr/lib/rpm/fileattrs/font.attr
 /usr/lib/rpm/fileattrs/libtool.attr
 /usr/lib/rpm/fileattrs/mono.attr

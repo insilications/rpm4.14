@@ -1,0 +1,55 @@
+From f77e2d11fd9e02902b21c73854eb53a1dd2621cd Mon Sep 17 00:00:00 2001
+From: Thiago Macieira <thiago.macieira@intel.com>
+Date: Tue, 7 Aug 2018 10:19:43 -0700
+Subject: [PATCH 2/2] fileattrs: Don't scan libraries in glibc auto-search dirs
+ for Provides
+
+Those libraries are meant to be runtime replacements of the ones in the
+regular $libdir, based on CPU features at runtime. If a packager decides
+to split them into a separate sub-package, the dependency resolver
+shouldn't be deciding to install that instead of the base package.
+---
+ fileattrs/Makefile.am       | 6 +++---
+ fileattrs/elf.attr          | 1 +
+ fileattrs/elfoptimized.attr | 4 ++++
+ 3 files changed, 8 insertions(+), 3 deletions(-)
+ create mode 100644 fileattrs/elfoptimized.attr
+
+diff --git a/fileattrs/Makefile.am b/fileattrs/Makefile.am
+index e54395b3b..aed40718c 100644
+--- a/fileattrs/Makefile.am
++++ b/fileattrs/Makefile.am
+@@ -5,8 +5,8 @@ include $(top_srcdir)/rpm.am
+ fattrsdir = $(rpmconfigdir)/fileattrs
+ 
+ fattrs_DATA = \
+-	appdata.attr desktop.attr elf.attr font.attr libtool.attr perl.attr \
+-	perllib.attr pkgconfig.attr python.attr ocaml.attr script.attr \
+-	mono.attr
++	appdata.attr desktop.attr elf.attr elfoptimized.attr font.attr \
++	libtool.attr perl.attr perllib.attr pkgconfig.attr python.attr \
++	ocaml.attr script.attr mono.attr
+ 
+ EXTRA_DIST = $(fattrs_DATA)
+diff --git a/fileattrs/elf.attr b/fileattrs/elf.attr
+index 060ddc081..7964b67d6 100644
+--- a/fileattrs/elf.attr
++++ b/fileattrs/elf.attr
+@@ -2,3 +2,4 @@
+ %__elf_requires		%{_rpmconfigdir}/elfdeps --requires %{?__filter_GLIBC_PRIVATE:--filter-private}
+ %__elf_magic		ELF (32|64)-bit.*$
+ %__elf_flags		exeonly
++%__elf_exclude_path     ^(/usr/lib/debug|(/usr)?/lib(64)?/(i686|x86_64|sse2|haswell|tls))/
+diff --git a/fileattrs/elfoptimized.attr b/fileattrs/elfoptimized.attr
+new file mode 100644
+index 000000000..4d8100edb
+--- /dev/null
++++ b/fileattrs/elfoptimized.attr
+@@ -0,0 +1,4 @@
++%__elfoptimized_requires		%{_rpmconfigdir}/elfdeps --requires %{?__filter_GLIBC_PRIVATE:--filter-private}
++%__elfoptimized_magic		ELF (32|64)-bit.*$
++%__elfoptimized_flags		exeonly
++%__elfoptimized_path		^(/usr)?/lib(64)?/(i686|x86_64|sse2|haswell|tls)/
+-- 
+2.18.0
+
