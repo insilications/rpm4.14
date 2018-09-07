@@ -1,8 +1,8 @@
-From f77e2d11fd9e02902b21c73854eb53a1dd2621cd Mon Sep 17 00:00:00 2001
+From ea12c16f21d034ec2dd6ac1f08350179632cbb21 Mon Sep 17 00:00:00 2001
 From: Thiago Macieira <thiago.macieira@intel.com>
 Date: Tue, 7 Aug 2018 10:19:43 -0700
-Subject: [PATCH 2/2] fileattrs: Don't scan libraries in glibc auto-search dirs
- for Provides
+Subject: [PATCH] fileattrs: Don't scan libraries in glibc auto-search dirs for
+ Provides
 
 Those libraries are meant to be runtime replacements of the ones in the
 regular $libdir, based on CPU features at runtime. If a packager decides

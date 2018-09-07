@@ -4,31 +4,30 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        80
+Release:        81
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
 Group:          base
 Source0:        http://ftp.rpm.org/releases/rpm-4.12.x/rpm-4.12.0.2.tar.bz2
-Patch0:         0001-Explicitly-set-beecrypt-include-directory.patch
-Patch1:         0002-Ensure-lib-is-used-and-not-lib64.patch
-Patch2:         0003-debuginfo-do-not-strip-static-libraries.patch
-Patch5:         0006-Fix-32bit-kernel-builds-by-not-using-eu-strip.patch
-Patch6:         0007-scripts-Don-t-bail-out-when-debugedit-fails.patch
-Patch7:         0001-fileattrs-Ensure-we-match-all-binaries-for-elf-depen.patch
-Patch8:         0008-build-id-non-fatal.patch
-Patch9:         ldconfig-posttrans.patch
-Patch10:        minidebuginfo.patch
-Patch11:        nopyo.patch
-patch12:        lib32.patch
-patch13:        py3.patch
-Patch14:        preserve-timestamp.patch
-Patch15:        nofdatasync.patch
-Patch16:        build-with-localhost-hostname.patch
-Patch17:        0001-Add-RPMCALLBACK_ELEM_PROGRESS-callback-type.patch
-Patch18:        0002-Move-RPMCALLBACK_ELEM_PROGRESS-to-rpmteProcess-to-ha.patch
-Patch19:	fflush.patch
-Patch20:	0002-fileattrs-Don-t-scan-libraries-in-glibc-auto-search-.patch
+Patch1:         0001-Explicitly-set-beecrypt-include-directory.patch
+Patch2:         0002-Ensure-lib-is-used-and-not-lib64.patch
+Patch3:         0003-debuginfo-do-not-strip-static-libraries.patch
+Patch4:         0004-Fix-32bit-kernel-builds-by-not-using-eu-strip.patch
+Patch5:         0005-scripts-Don-t-bail-out-when-debugedit-fails.patch
+Patch6:         0006-fileattrs-Ensure-we-match-all-binaries-for-elf-depen.patch
+Patch7:         0007-Don-t-fail-a-build-if-build-id-is-a-duplicate.patch
+Patch8:         0008-Add-ldconfig-post-transaction-hook.patch
+Patch9:         0009-don-t-generate-pyo-files-they-re-useless.patch
+Patch10:        0010-support-lib32-pkgconfig-files.patch
+Patch11:        0011-build-for-python3.patch
+Patch12:        0012-preserve-timestamps.patch
+Patch13:        0013-skip-datasync.patch
+Patch14:        0014-rpm-use-localhost-as-hostname-for-building-all-packa.patch
+Patch15:        0015-Add-RPMCALLBACK_ELEM_PROGRESS-callback-type.patch
+Patch16:        0016-Move-RPMCALLBACK_ELEM_PROGRESS-to-rpmteProcess-to-ha.patch
+Patch17:        0017-add-an-fflush.patch
+Patch18:        0018-fileattrs-Don-t-scan-libraries-in-glibc-auto-search-.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev
@@ -147,15 +146,16 @@ This package contains language translation files for rpm package.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
-# %patch10 -p1
+%patch10 -p1
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
@@ -164,8 +164,6 @@ This package contains language translation files for rpm package.
 %patch16 -p1
 %patch17 -p1
 %patch18 -p1
-%patch19 -p1
-%patch20 -p1
 
 %build
 autoreconf -fi

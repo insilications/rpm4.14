@@ -1,7 +1,7 @@
-From cea24ed1c6f65d2100daaaa86de381919695604f Mon Sep 17 00:00:00 2001
+From c15bf8a9d7dafd2e65df9e12217ad90e958b0248 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 7 May 2013 12:57:42 -0700
-Subject: [PATCH 6/7] Fix 32bit kernel builds by not using eu-strip
+Subject: [PATCH] Fix 32bit kernel builds by not using eu-strip
 
 Right now 32bit kernel builds are failing because eu-strip is not
 performing safe operations. In order to work around this, use objdump
@@ -15,10 +15,10 @@ Signed-off-by: William Douglas <william.douglas@intel.com>
  1 file changed, 29 insertions(+), 5 deletions(-)
 
 diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
-index a2a33d1..6ae6ac9 100644
+index c4c1c1d87..d168fa9f9 100644
 --- a/scripts/find-debuginfo.sh
 +++ b/scripts/find-debuginfo.sh
-@@ -258,12 +258,36 @@ while read nlinks inum f; do
+@@ -253,12 +253,36 @@ while read nlinks inum f; do
    esac
  
    mkdir -p "${debugdn}"
@@ -61,5 +61,5 @@ index a2a33d1..6ae6ac9 100644
  
    if [ -n "$id" ]; then
 -- 
-1.9.1
+2.18.0
 

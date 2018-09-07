@@ -1,4 +1,4 @@
-From 448db68ceb5be3c7171b7ec0ea908d905792dc2f Mon Sep 17 00:00:00 2001
+From a8b63369eb640a5f6515f0c24b5b42398d69344d Mon Sep 17 00:00:00 2001
 From: Michal Domonkos <mdomonko@redhat.com>
 Date: Mon, 7 Dec 2015 17:13:26 +0100
 Subject: [PATCH] Add RPMCALLBACK_ELEM_PROGRESS callback type
@@ -26,22 +26,22 @@ This commit adds such a callback.
  3 files changed, 6 insertions(+)
 
 diff --git a/lib/rpmcallback.h b/lib/rpmcallback.h
-index dfc22ab7f..f07892d0a 100644
+index b3b05c6c1..b6d434c01 100644
 --- a/lib/rpmcallback.h
 +++ b/lib/rpmcallback.h
-@@ -37,6 +37,7 @@ typedef enum rpmCallbackType_e {
+@@ -31,6 +31,7 @@ typedef enum rpmCallbackType_e {
      RPMCALLBACK_SCRIPT_START	= (1 << 16),
      RPMCALLBACK_SCRIPT_STOP	= (1 << 17),
      RPMCALLBACK_INST_STOP	= (1 << 18),
 +    RPMCALLBACK_ELEM_PROGRESS	= (1 << 19),
  } rpmCallbackType;
  
- /** \ingroup rpmts
+ /**
 diff --git a/lib/transaction.c b/lib/transaction.c
-index 66888afd3..4f90782ac 100644
+index 736f64d91..a7074bd69 100644
 --- a/lib/transaction.c
 +++ b/lib/transaction.c
-@@ -1345,12 +1345,16 @@ exit:
+@@ -1329,12 +1329,16 @@ exit:
  static int rpmtsProcess(rpmts ts)
  {
      rpmtsi pi;	rpmte p;
@@ -59,10 +59,10 @@ index 66888afd3..4f90782ac 100644
  		rpmteNEVR(p), rpmteA(p), rpmteO(p), rpmteColor(p));
  
 diff --git a/python/rpmmodule.c b/python/rpmmodule.c
-index 0e3ab181c..29753fd0c 100644
+index 4e6fe2784..8d18d2df6 100644
 --- a/python/rpmmodule.c
 +++ b/python/rpmmodule.c
-@@ -512,6 +512,7 @@ static int initModule(PyObject *m)
+@@ -479,6 +479,7 @@ static int initModule(PyObject *m)
      REGISTER_ENUM(RPMCALLBACK_SCRIPT_START);
      REGISTER_ENUM(RPMCALLBACK_SCRIPT_STOP);
      REGISTER_ENUM(RPMCALLBACK_INST_STOP);
@@ -71,5 +71,5 @@ index 0e3ab181c..29753fd0c 100644
      REGISTER_ENUM(RPMPROB_BADARCH);
      REGISTER_ENUM(RPMPROB_BADOS);
 -- 
-2.14.2
+2.18.0
 

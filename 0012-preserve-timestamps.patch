@@ -1,0 +1,105 @@
+From 9dce34f6552a605de788d28b82094140f4aa84c9 Mon Sep 17 00:00:00 2001
+From: Arjan van de Ven <arjan@linux.intel.com>
+Date: Sat, 14 Jan 2017 03:52:55 +0000
+Subject: [PATCH] preserve timestamps
+
+Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
+---
+ build/pack.c                     | 18 ++++++++++++++++--
+ scripts/brp-strip                |  2 +-
+ scripts/brp-strip-comment-note   |  2 +-
+ scripts/brp-strip-shared         |  2 +-
+ scripts/brp-strip-static-archive |  2 +-
+ scripts/find-debuginfo.sh        |  2 +-
+ 6 files changed, 21 insertions(+), 7 deletions(-)
+
+diff --git a/build/pack.c b/build/pack.c
+index 6cf42ecd6..d311d5d77 100644
+--- a/build/pack.c
++++ b/build/pack.c
+@@ -152,9 +152,23 @@ exit:
+ static rpm_time_t * getBuildTime(void)
+ {
+     static rpm_time_t buildTime[1];
++    char *srcdate;
++    time_t epoch;
++    char *endptr;
++
++    if (buildTime[0] == 0) {
++        srcdate = getenv("SOURCE_DATE_EPOCH");
++        if (srcdate) {
++            errno = 0;
++            epoch = strtol(srcdate, &endptr, 10);
++            if (srcdate == endptr || *endptr || errno != 0)
++                rpmlog(RPMLOG_ERR, _("unable to parse SOURCE_DATE_EPOCH\n"));
++            else
++                buildTime[0] = (int32_t) epoch;
++        } else
++            buildTime[0] = (int32_t) 0;
++    }
+ 
+-    if (buildTime[0] == 0)
+-	buildTime[0] = (int32_t) time(NULL);
+     return buildTime;
+ }
+ 
+diff --git a/scripts/brp-strip b/scripts/brp-strip
+index 2e99d1e6d..289877c06 100755
+--- a/scripts/brp-strip
++++ b/scripts/brp-strip
+@@ -16,5 +16,5 @@ for f in `find "$RPM_BUILD_ROOT" -type f \( -perm -0100 -or -perm -0010 -or -per
+         grep -v "^${RPM_BUILD_ROOT}/\?usr/lib/debug"  | \
+ 	grep -v ' shared object,' | \
+ 	sed -n -e 's/^\(.*\):[ 	]*ELF.*, not stripped/\1/p'`; do
+-	$STRIP -g "$f" || :
++	$STRIP -p -g "$f" || :
+ done
+diff --git a/scripts/brp-strip-comment-note b/scripts/brp-strip-comment-note
+index 323c0410a..4576de146 100755
+--- a/scripts/brp-strip-comment-note
++++ b/scripts/brp-strip-comment-note
+@@ -22,5 +22,5 @@ for f in `find "$RPM_BUILD_ROOT" -type f \( -perm -0100 -or -perm -0010 -or -per
+ 		grep ALLOC >/dev/null; then
+ 		note=
+ 	fi
+-	$STRIP -R .comment $note "$f" || :
++	$STRIP -p -R .comment $note "$f" || :
+ done
+diff --git a/scripts/brp-strip-shared b/scripts/brp-strip-shared
+index e06ee4bf4..a95b843a6 100644
+--- a/scripts/brp-strip-shared
++++ b/scripts/brp-strip-shared
+@@ -21,5 +21,5 @@ for f in `find "$RPM_BUILD_ROOT" -type f -a -exec file {} \; | \
+         grep -v "^${RPM_BUILD_ROOT}/\?usr/lib/debug"  | \
+ 	grep ' shared object,' | \
+ 	sed -n -e 's/^\(.*\):[ 	]*ELF.*, not stripped/\1/p'`; do
+-	$STRIP --strip-unneeded "$f"
++	$STRIP -p --strip-unneeded "$f"
+ done
+diff --git a/scripts/brp-strip-static-archive b/scripts/brp-strip-static-archive
+index ddd3b2422..3f3542c7c 100755
+--- a/scripts/brp-strip-static-archive
++++ b/scripts/brp-strip-static-archive
+@@ -16,5 +16,5 @@ for f in `find "$RPM_BUILD_ROOT" -type f -a -exec file {} \; | \
+         grep -v "^${RPM_BUILD_ROOT}/\?usr/lib/debug"  | \
+ 	grep 'current ar archive' | \
+ 	sed -n -e 's/^\(.*\):[ 	]*current ar archive/\1/p'`; do
+-	$STRIP -g "$f"
++	$STRIP -p -g "$f"
+ done
+diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
+index a2ad2128f..45cb6ac7f 100644
+--- a/scripts/find-debuginfo.sh
++++ b/scripts/find-debuginfo.sh
+@@ -101,7 +101,7 @@ strip_to_debug()
+   $strip_g && case "$(file -bi "$2")" in
+   application/x-sharedlib*) g=-g ;;
+   esac
+-  eu-strip --remove-comment $r $g -f "$1" "$2" || exit
++  eu-strip -p --remove-comment $r $g -f "$1" "$2" || exit
+   chmod 444 "$1" || exit
+ }
+ 
+-- 
+2.18.0
+
