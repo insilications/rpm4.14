@@ -1,5 +1,3 @@
-%global __os_install_post %{nil}
-
 %define debug_package %{nil}
 
 Name:           rpm
@@ -189,10 +187,6 @@ make %{?_smp_mflags}
 %install
 %make_install
 
-# Make rpm accessible in usrbin
-#mv %{buildroot}/bin/rpm %{buildroot}%{_bindir}/rpm
-#rmdir %{buildroot}/bin
-
 # Fix up symlinks that point to /bin/rpm
 ln -sf rpm %{buildroot}%{_bindir}/rpmquery
 ln -sf rpm %{buildroot}%{_bindir}/rpmverify
@@ -200,10 +194,6 @@ ln -sf rpm %{buildroot}%{_bindir}/rpmverify
 # this ensures perl doesnt go boom
 rm %{buildroot}/usr/lib/rpm/fileattrs/perl.attr
 rm %{buildroot}/usr/lib/rpm/fileattrs/perllib.attr
-
-# since post-install hook is disabled on line1, replicate the
-# behaviour of stripping libtool .la files
-find %{buildroot} -name "*.la" -delete
 
 %find_lang %{name}
 
