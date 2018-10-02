@@ -4,7 +4,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        81
+Release:        82
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -28,6 +28,7 @@ Patch15:        0015-Add-RPMCALLBACK_ELEM_PROGRESS-callback-type.patch
 Patch16:        0016-Move-RPMCALLBACK_ELEM_PROGRESS-to-rpmteProcess-to-ha.patch
 Patch17:        0017-add-an-fflush.patch
 Patch18:        0018-fileattrs-Don-t-scan-libraries-in-glibc-auto-search-.patch
+Patch19:        0019-Force-locale-files-not-to-be-executable.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev
@@ -164,6 +165,7 @@ This package contains language translation files for rpm package.
 %patch16 -p1
 %patch17 -p1
 %patch18 -p1
+%patch19 -p1
 
 %build
 autoreconf -fi
