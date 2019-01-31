@@ -1,0 +1,10 @@
+--- rpm-4.12.0.1/scripts/pkgconfigdeps.sh~	2014-06-30 08:47:14.000000000 +0000
++++ rpm-4.12.0.1/scripts/pkgconfigdeps.sh	2019-01-31 15:53:15.259935597 +0000
+@@ -41,7 +41,6 @@
+     case "${filename}" in
+     *.pc)
+ 	i="`expr $i + 1`"
+-	[ $i -eq 1 ] && echo "$pkgconfig"
+ 	DIR="`dirname ${filename}`"
+ 	export PKG_CONFIG_PATH="$DIR:$DIR/../../share/pkgconfig"
+ 	$pkgconfig --print-requires --print-requires-private "$filename" 2> /dev/null | while read n r v ; do
