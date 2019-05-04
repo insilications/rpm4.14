@@ -28,6 +28,7 @@ Patch17:        0017-add-an-fflush.patch
 Patch18:        0018-fileattrs-Don-t-scan-libraries-in-glibc-auto-search-.patch
 Patch19:        0019-Force-locale-files-not-to-be-executable.patch
 Patch20:	nopkgbin.patch
+Patch21:	move-debug-info.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev
@@ -166,6 +167,7 @@ This package contains language translation files for rpm package.
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
+%patch21 -p1
 
 %build
 autoreconf -fi
