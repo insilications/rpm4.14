@@ -1,0 +1,48 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Patrick McCarty <patrick.mccarty@intel.com>
+Date: Thu, 13 Jun 2019 10:58:01 -0700
+Subject: [PATCH] Backport patch to fix creation of large packages
+
+We have recently seen mesa (with lto enabled) generate a corrupt
+debuginfo RPM. The root cause was a bug in rpm, which was fixed in the
+4.13.0.1 release.
+
+References:
+https://bugzilla.redhat.com/show_bug.cgi?id=1405570
+https://github.com/rpm-software-management/rpm/commit/e51644e0ee
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ build/pack.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/build/pack.c b/build/pack.c
+index 27de3c5..3e47bf7 100644
+--- a/build/pack.c
++++ b/build/pack.c
+@@ -293,7 +293,8 @@ static rpmRC generateSignature(char *SHA1, uint8_t *MD5, rpm_loff_t size,
+     struct rpmtd_s td;
+     rpmRC rc = RPMRC_OK;
+     char *reservedSpace;
+-    int spaceSize = 0;
++    int spaceSize = 32; /* always reserve a bit of space */
++    int gpgSize = rpmExpandNumeric("%{__gpg_reserved_space}");
+ 
+     /* Prepare signature */
+     sig = rpmNewSignature();
+@@ -338,9 +339,14 @@ static rpmRC generateSignature(char *SHA1, uint8_t *MD5, rpm_loff_t size,
+ 	td.tag = RPMSIGTAG_LONGSIZE;
+ 	td.data = &s;
+ 	headerPut(sig, &td, HEADERPUT_DEFAULT);
++
++	/* adjust for the size difference between 64- and 32bit tags */
++	spaceSize -= 8;
+     }
+ 
+-    spaceSize = rpmExpandNumeric("%{__gpg_reserved_space}");
++    if (gpgSize > 0)
++	spaceSize += gpgSize;
++
+     if(spaceSize > 0) {
+ 	reservedSpace = xcalloc(spaceSize, sizeof(char));
+ 	rpmtdReset(&td);
