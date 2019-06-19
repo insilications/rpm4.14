@@ -1,4 +1,4 @@
-From a8b63369eb640a5f6515f0c24b5b42398d69344d Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Michal Domonkos <mdomonko@redhat.com>
 Date: Mon, 7 Dec 2015 17:13:26 +0100
 Subject: [PATCH] Add RPMCALLBACK_ELEM_PROGRESS callback type
@@ -26,7 +26,7 @@ This commit adds such a callback.
  3 files changed, 6 insertions(+)
 
 diff --git a/lib/rpmcallback.h b/lib/rpmcallback.h
-index b3b05c6c1..b6d434c01 100644
+index b3b05c6..b6d434c 100644
 --- a/lib/rpmcallback.h
 +++ b/lib/rpmcallback.h
 @@ -31,6 +31,7 @@ typedef enum rpmCallbackType_e {
@@ -38,7 +38,7 @@ index b3b05c6c1..b6d434c01 100644
  
  /**
 diff --git a/lib/transaction.c b/lib/transaction.c
-index 736f64d91..a7074bd69 100644
+index 736f64d..a7074bd 100644
 --- a/lib/transaction.c
 +++ b/lib/transaction.c
 @@ -1329,12 +1329,16 @@ exit:
@@ -59,7 +59,7 @@ index 736f64d91..a7074bd69 100644
  		rpmteNEVR(p), rpmteA(p), rpmteO(p), rpmteColor(p));
  
 diff --git a/python/rpmmodule.c b/python/rpmmodule.c
-index 4e6fe2784..8d18d2df6 100644
+index 4e6fe27..8d18d2d 100644
 --- a/python/rpmmodule.c
 +++ b/python/rpmmodule.c
 @@ -479,6 +479,7 @@ static int initModule(PyObject *m)
@@ -70,6 +70,3 @@ index 4e6fe2784..8d18d2df6 100644
  
      REGISTER_ENUM(RPMPROB_BADARCH);
      REGISTER_ENUM(RPMPROB_BADOS);
--- 
-2.18.0
-

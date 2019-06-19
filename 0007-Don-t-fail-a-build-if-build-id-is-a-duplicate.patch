@@ -1,4 +1,4 @@
-From 41dc57369f1ba3d127636c705bfa339411887f36 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: avandeve <arjan@linux.intel.com>
 Date: Thu, 27 Aug 2015 09:25:41 -0400
 Subject: [PATCH] Don't fail a build if build-id is a duplicate
@@ -10,7 +10,7 @@ Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
  2 files changed, 2 insertions(+), 3 deletions(-)
 
 diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
-index a10b0c7a5..a2ad2128f 100644
+index a10b0c7..a2ad212 100644
 --- a/scripts/find-debuginfo.sh
 +++ b/scripts/find-debuginfo.sh
 @@ -183,7 +183,6 @@ make_id_link()
@@ -31,7 +31,7 @@ index a10b0c7a5..a2ad2128f 100644
  
    [ -x /usr/bin/gdb-add-index ] && /usr/bin/gdb-add-index "$f" > /dev/null 2>&1
 diff --git a/tools/debugedit.c b/tools/debugedit.c
-index 0f85885e3..5dacb92e2 100644
+index 0f85885..5dacb92 100644
 --- a/tools/debugedit.c
 +++ b/tools/debugedit.c
 @@ -675,7 +675,7 @@ edit_dwarf2_line (DSO *dso, uint32_t off, char *comp_dir, int phase)
@@ -43,6 +43,3 @@ index 0f85885e3..5dacb92e2 100644
  		   "canonicalization unexpectedly shrank by one character");
  	  else
  	    {
--- 
-2.18.0
-

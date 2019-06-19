@@ -1,4 +1,4 @@
-From 9dce34f6552a605de788d28b82094140f4aa84c9 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Arjan van de Ven <arjan@linux.intel.com>
 Date: Sat, 14 Jan 2017 03:52:55 +0000
 Subject: [PATCH] preserve timestamps
@@ -14,7 +14,7 @@ Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
  6 files changed, 21 insertions(+), 7 deletions(-)
 
 diff --git a/build/pack.c b/build/pack.c
-index 6cf42ecd6..d311d5d77 100644
+index 6cf42ec..d311d5d 100644
 --- a/build/pack.c
 +++ b/build/pack.c
 @@ -152,9 +152,23 @@ exit:
@@ -44,7 +44,7 @@ index 6cf42ecd6..d311d5d77 100644
  }
  
 diff --git a/scripts/brp-strip b/scripts/brp-strip
-index 2e99d1e6d..289877c06 100755
+index 2e99d1e..289877c 100755
 --- a/scripts/brp-strip
 +++ b/scripts/brp-strip
 @@ -16,5 +16,5 @@ for f in `find "$RPM_BUILD_ROOT" -type f \( -perm -0100 -or -perm -0010 -or -per
@@ -55,7 +55,7 @@ index 2e99d1e6d..289877c06 100755
 +	$STRIP -p -g "$f" || :
  done
 diff --git a/scripts/brp-strip-comment-note b/scripts/brp-strip-comment-note
-index 323c0410a..4576de146 100755
+index 323c041..4576de1 100755
 --- a/scripts/brp-strip-comment-note
 +++ b/scripts/brp-strip-comment-note
 @@ -22,5 +22,5 @@ for f in `find "$RPM_BUILD_ROOT" -type f \( -perm -0100 -or -perm -0010 -or -per
@@ -66,7 +66,7 @@ index 323c0410a..4576de146 100755
 +	$STRIP -p -R .comment $note "$f" || :
  done
 diff --git a/scripts/brp-strip-shared b/scripts/brp-strip-shared
-index e06ee4bf4..a95b843a6 100644
+index e06ee4b..a95b843 100644
 --- a/scripts/brp-strip-shared
 +++ b/scripts/brp-strip-shared
 @@ -21,5 +21,5 @@ for f in `find "$RPM_BUILD_ROOT" -type f -a -exec file {} \; | \
@@ -77,7 +77,7 @@ index e06ee4bf4..a95b843a6 100644
 +	$STRIP -p --strip-unneeded "$f"
  done
 diff --git a/scripts/brp-strip-static-archive b/scripts/brp-strip-static-archive
-index ddd3b2422..3f3542c7c 100755
+index ddd3b24..3f3542c 100755
 --- a/scripts/brp-strip-static-archive
 +++ b/scripts/brp-strip-static-archive
 @@ -16,5 +16,5 @@ for f in `find "$RPM_BUILD_ROOT" -type f -a -exec file {} \; | \
@@ -88,7 +88,7 @@ index ddd3b2422..3f3542c7c 100755
 +	$STRIP -p -g "$f"
  done
 diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
-index a2ad2128f..45cb6ac7f 100644
+index a2ad212..45cb6ac 100644
 --- a/scripts/find-debuginfo.sh
 +++ b/scripts/find-debuginfo.sh
 @@ -101,7 +101,7 @@ strip_to_debug()
@@ -100,6 +100,3 @@ index a2ad2128f..45cb6ac7f 100644
    chmod 444 "$1" || exit
  }
  
--- 
-2.18.0
-

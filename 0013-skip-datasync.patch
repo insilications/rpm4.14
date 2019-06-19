@@ -1,4 +1,4 @@
-From bea8db0f0ffb69974b23e77b0a2a30065256ac29 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Arjan van de Ven <arjan@linux.intel.com>
 Date: Tue, 11 Apr 2017 00:58:59 +0000
 Subject: [PATCH] skip datasync
@@ -9,7 +9,7 @@ Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/lib/backend/db3.c b/lib/backend/db3.c
-index 01fce2778..226f793ad 100644
+index 01fce27..226f793 100644
 --- a/lib/backend/db3.c
 +++ b/lib/backend/db3.c
 @@ -302,6 +302,8 @@ static int dbiSync(dbiIndex dbi, unsigned int flags)
@@ -21,6 +21,3 @@ index 01fce2778..226f793ad 100644
      if (db != NULL && !dbi->dbi_no_dbsync) {
  	rc = db->sync(db, flags);
  	rc = cvtdberr(dbi, "db->sync", rc, _debug);
--- 
-2.18.0
-

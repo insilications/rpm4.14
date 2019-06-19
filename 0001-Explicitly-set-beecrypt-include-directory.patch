@@ -1,4 +1,4 @@
-From 952a2be98221362e8aa43c1f6883fe441c5fbcc3 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Michael Ikey Doherty <michael.i.doherty@intel.com>
 Date: Wed, 9 Apr 2014 12:48:41 +0100
 Subject: [PATCH] Explicitly set beecrypt include directory
@@ -9,7 +9,7 @@ Signed-off-by: Michael Ikey Doherty <michael.i.doherty@intel.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/configure.ac b/configure.ac
-index 0d1bf8103..c2b8a032a 100644
+index 0d1bf81..c2b8a03 100644
 --- a/configure.ac
 +++ b/configure.ac
 @@ -269,6 +269,7 @@ if test "$with_beecrypt" = yes ; then
@@ -20,6 +20,3 @@ index 0d1bf8103..c2b8a032a 100644
  AC_SUBST(WITH_BEECRYPT_LIB)
  AC_SUBST(WITH_BEECRYPT_INCLUDE)
  
--- 
-2.18.0
-

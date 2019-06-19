@@ -1,4 +1,4 @@
-From c15bf8a9d7dafd2e65df9e12217ad90e958b0248 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: William Douglas <william.douglas@intel.com>
 Date: Tue, 7 May 2013 12:57:42 -0700
 Subject: [PATCH] Fix 32bit kernel builds by not using eu-strip
@@ -15,7 +15,7 @@ Signed-off-by: William Douglas <william.douglas@intel.com>
  1 file changed, 29 insertions(+), 5 deletions(-)
 
 diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
-index c4c1c1d87..d168fa9f9 100644
+index c4c1c1d..d168fa9 100644
 --- a/scripts/find-debuginfo.sh
 +++ b/scripts/find-debuginfo.sh
 @@ -253,12 +253,36 @@ while read nlinks inum f; do
@@ -60,6 +60,3 @@ index c4c1c1d87..d168fa9f9 100644
    fi
  
    if [ -n "$id" ]; then
--- 
-2.18.0
-

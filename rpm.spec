@@ -27,9 +27,9 @@ Patch16:        0016-Move-RPMCALLBACK_ELEM_PROGRESS-to-rpmteProcess-to-ha.patch
 Patch17:        0017-add-an-fflush.patch
 Patch18:        0018-fileattrs-Don-t-scan-libraries-in-glibc-auto-search-.patch
 Patch19:        0019-Force-locale-files-not-to-be-executable.patch
-Patch20:	nopkgbin.patch
-Patch21:	move-debug-info.patch
-Patch22:	CVE-2017-7501.patch
+Patch20:        0020-skip-pkgconfig-dep.patch
+Patch21:        0021-Relocate-debuginfo-to-usr-share-debug.patch
+Patch22:        CVE-2017-7501.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev

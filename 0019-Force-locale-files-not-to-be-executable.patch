@@ -1,4 +1,4 @@
-From d9f0b392055d570929ea1a4eda28160c53ca905d Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Auke Kok <auke-jan.h.kok@intel.com>
 Date: Tue, 2 Oct 2018 11:26:29 -0700
 Subject: [PATCH] Force locale files not to be executable.
@@ -28,6 +28,3 @@ index 315d491..26472c3 100755
  
  find "$TOP_DIR" -type d|sed '
  s:'"$TOP_DIR"'::
--- 
-2.19.0
-

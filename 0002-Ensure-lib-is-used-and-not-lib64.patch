@@ -1,4 +1,4 @@
-From 2d24f665db48f4d8e12a6ed6d0f7a9a85b4482fe Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Michael Ikey Doherty <michael.i.doherty@intel.com>
 Date: Thu, 10 Apr 2014 12:11:24 +0100
 Subject: [PATCH] Ensure "lib" is used and not "lib64"
@@ -9,7 +9,7 @@ Signed-off-by: Michael Ikey Doherty <michael.i.doherty@intel.com>
  1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/installplatform b/installplatform
-index 98b87f37a..e64147049 100755
+index 98b87f3..e641470 100755
 --- a/installplatform
 +++ b/installplatform
 @@ -130,9 +130,10 @@ for ARCH in noarch `grep ^arch_canon $RPMRC | cut -d: -f2`; do
@@ -26,6 +26,3 @@ index 98b87f37a..e64147049 100755
  
    PPD="${DESTDIR}/${platformdir}/${ARCH}-${OS}"
    [ -d $PPD ] || mkdir -p $PPD
--- 
-2.18.0
-

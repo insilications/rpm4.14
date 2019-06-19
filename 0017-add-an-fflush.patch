@@ -1,4 +1,4 @@
-From 43e9fa31945254560951aaf0431992c30ce9a121 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Arjan van de Ven <arjan@linux.intel.com>
 Date: Fri, 27 Oct 2017 15:41:28 +0000
 Subject: [PATCH] add an fflush
@@ -9,7 +9,7 @@ Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
  1 file changed, 1 insertion(+)
 
 diff --git a/build/files.c b/build/files.c
-index df0b61114..775393c3e 100644
+index df0b611..775393c 100644
 --- a/build/files.c
 +++ b/build/files.c
 @@ -2022,6 +2022,7 @@ static int checkFiles(const char *buildRoot, StringBuf fileList)
@@ -20,6 +20,3 @@ index df0b61114..775393c3e 100644
  	}
      }
      
--- 
-2.18.0
-

@@ -1,4 +1,4 @@
-From 533eeb13ec9f1480533fbf8ffdce3c3974c8b224 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Patrick McCarty <patrick.mccarty@linux.intel.com>
 Date: Mon, 5 May 2014 13:17:57 -0700
 Subject: [PATCH] debuginfo: do not strip static libraries
@@ -11,7 +11,7 @@ Likewise, we don't want to strip ld.so for valgrind
  1 file changed, 2 insertions(+), 1 deletion(-)
 
 diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
-index 57449f74c..c4c1c1d87 100644
+index 57449f7..c4c1c1d 100644
 --- a/scripts/find-debuginfo.sh
 +++ b/scripts/find-debuginfo.sh
 @@ -201,9 +201,10 @@ set -o pipefail
@@ -26,6 +26,3 @@ index 57449f74c..c4c1c1d87 100644
  		     -print |
  file -N -f - | sed -n -e 's/^\(.*\):[ 	]*.*ELF.*, not stripped/\1/p' |
  xargs --no-run-if-empty stat -c '%h %D_%i %n' |
--- 
-2.18.0
-

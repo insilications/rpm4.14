@@ -1,0 +1,21 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Arjan van de Ven <arjan@linux.intel.com>
+Date: Thu, 31 Jan 2019 15:53:44 +0000
+Subject: [PATCH] skip pkgconfig dep
+
+---
+ scripts/pkgconfigdeps.sh | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/scripts/pkgconfigdeps.sh b/scripts/pkgconfigdeps.sh
+index 270dd74..760d0e6 100755
+--- a/scripts/pkgconfigdeps.sh
++++ b/scripts/pkgconfigdeps.sh
+@@ -41,7 +41,6 @@ case $1 in
+     case "${filename}" in
+     *.pc)
+ 	i="`expr $i + 1`"
+-	[ $i -eq 1 ] && echo "$pkgconfig"
+ 	DIR="`dirname ${filename}`"
+ 	export PKG_CONFIG_PATH="$DIR:$DIR/../../share/pkgconfig"
+ 	$pkgconfig --print-requires --print-requires-private "$filename" 2> /dev/null | while read n r v ; do

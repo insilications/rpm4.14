@@ -1,7 +1,7 @@
-From 951b85af3a2d1b5572639494cafbc8c41e535910 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Auke Kok <auke-jan.h.kok@intel.com>
 Date: Thu, 7 Sep 2017 14:52:54 -0700
-Subject: [PATCH] rpm: use 'localhost'  as hostname for building all packages.
+Subject: [PATCH] rpm: use 'localhost' as hostname for building all packages.
 
 Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
 ---
@@ -9,7 +9,7 @@ Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
  1 file changed, 1 insertion(+), 8 deletions(-)
 
 diff --git a/build/pack.c b/build/pack.c
-index d311d5d77..27de3c5de 100644
+index d311d5d..27de3c5 100644
 --- a/build/pack.c
 +++ b/build/pack.c
 @@ -176,16 +176,9 @@ static const char * buildHost(void)
@@ -30,6 +30,3 @@ index d311d5d77..27de3c5de 100644
  	oneshot = 1;
      }
      return(hostname);
--- 
-2.18.0
-

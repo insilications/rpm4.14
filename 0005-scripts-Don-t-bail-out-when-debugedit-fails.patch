@@ -1,4 +1,4 @@
-From 241b7e352b30406dcf55cda5d09ef61191f7de4e Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Ikey Doherty <michael.i.doherty@intel.com>
 Date: Thu, 26 Jun 2014 15:13:32 +0100
 Subject: [PATCH] scripts: Don't bail out when debugedit fails
@@ -15,7 +15,7 @@ Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
-index d168fa9f9..a10b0c7a5 100644
+index d168fa9..a10b0c7 100644
 --- a/scripts/find-debuginfo.sh
 +++ b/scripts/find-debuginfo.sh
 @@ -233,7 +233,7 @@ while read nlinks inum f; do
@@ -27,6 +27,3 @@ index d168fa9f9..a10b0c7a5 100644
    if [ $nlinks -gt 1 ]; then
      eval linkedid_$inum=\$id
    fi
--- 
-2.18.0
-
