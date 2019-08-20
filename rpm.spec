@@ -2,7 +2,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        90
+Release:        91
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -30,7 +30,8 @@ Patch19:        0019-Force-locale-files-not-to-be-executable.patch
 Patch20:        0020-skip-pkgconfig-dep.patch
 Patch21:        0021-Relocate-debuginfo-to-usr-share-debug.patch
 Patch22:        0022-Backport-patch-to-fix-creation-of-large-packages.patch
-Patch23:        CVE-2017-7501.patch
+Patch23:        0023-Patch-ocaml-find-provides.sh-to-expose-ocaml-runtime.patch
+Patch24:        CVE-2017-7501.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev
@@ -172,6 +173,7 @@ This package contains language translation files for rpm package.
 %patch21 -p1
 %patch22 -p1
 %patch23 -p1
+%patch24 -p1
 
 %build
 autoreconf -fi

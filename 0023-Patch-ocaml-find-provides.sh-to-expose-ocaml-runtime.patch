@@ -1,0 +1,37 @@
+From af67b54225549e74de8a8f8af133e4e720ef405e Mon Sep 17 00:00:00 2001
+From: Auke Kok <auke-jan.h.kok@intel.com>
+Date: Tue, 20 Aug 2019 13:15:23 -0700
+Subject: [PATCH] Patch ocaml-find-provides.sh to expose `ocaml(runtime) =
+ $version`.
+
+This is needed to get autospec to nicely automatically insert
+the right ABI here that other rpms and itself depend on.
+---
+ scripts/ocaml-find-provides.sh | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/scripts/ocaml-find-provides.sh b/scripts/ocaml-find-provides.sh
+index 985709e..fc485c6 100644
+--- a/scripts/ocaml-find-provides.sh
++++ b/scripts/ocaml-find-provides.sh
+@@ -31,6 +31,8 @@ done
+ # Get the list of files.
+ files=`sed "s/['\"]/\\\&/g"`
+ 
++ocamlbin=/builddir/build/BUILD/ocaml-*/ocaml
++
+ # Get list of .cmi, .cmo and .cma files.
+ files=`echo $files | tr '[:blank:]' '\n' | grep '\.cm[ioa]$'`
+ 
+@@ -54,3 +56,8 @@ while read md5sum module; do
+ done |
+ grep -Ev "$ignore_modules_re" |
+ sort -u
++
++# Manually insert ocaml(runtime)
++if [ -x "$ocamlbin" ]; then
++    echo "ocaml(runtime) = `$ocamlbin --version | sed 's/The OCaml toplevel, version //'`"
++fi
+-- 
+2.23.0
+
