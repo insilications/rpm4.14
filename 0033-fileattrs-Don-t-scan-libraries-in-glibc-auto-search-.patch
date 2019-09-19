@@ -1,0 +1,55 @@
+From 5f0b4f8e1d3e985e1c015c8f4045b18890b45fb4 Mon Sep 17 00:00:00 2001
+From: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Date: Thu, 19 Sep 2019 14:51:20 -0700
+Subject: [PATCH 33/34] fileattrs: Don't scan libraries in glibc auto-search
+ dirs for Provides
+
+Those libraries are meant to be runtime replacements of the ones in the regular
+$libdir, based on CPU features at runtime. If a packager decides to split them into
+a separate sub-package, the dependency resolver shouldn't be deciding to install
+that instead of the base package.
+
+Ported-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
+---
+ fileattrs/Makefile.am       | 2 +-
+ fileattrs/elf.attr          | 1 +
+ fileattrs/elfoptimized.attr | 4 ++++
+ 3 files changed, 6 insertions(+), 1 deletion(-)
+ create mode 100644 fileattrs/elfoptimized.attr
+
+diff --git a/fileattrs/Makefile.am b/fileattrs/Makefile.am
+index 1895f4426..4485fdc8b 100644
+--- a/fileattrs/Makefile.am
++++ b/fileattrs/Makefile.am
+@@ -6,7 +6,7 @@ AM_CFLAGS = @RPMCFLAGS@
+ fattrsdir = $(rpmconfigdir)/fileattrs
+ 
+ fattrs_DATA = \
+-	debuginfo.attr desktop.attr elf.attr font.attr libtool.attr metainfo.attr \
++	debuginfo.attr desktop.attr elf.attr elfoptimized.attr font.attr libtool.attr metainfo.attr \
+ 	perl.attr perllib.attr pkgconfig.attr python.attr ocaml.attr script.attr \
+ 	mono.attr
+ 
+diff --git a/fileattrs/elf.attr b/fileattrs/elf.attr
+index 060ddc081..7964b67d6 100644
+--- a/fileattrs/elf.attr
++++ b/fileattrs/elf.attr
+@@ -2,3 +2,4 @@
+ %__elf_requires		%{_rpmconfigdir}/elfdeps --requires %{?__filter_GLIBC_PRIVATE:--filter-private}
+ %__elf_magic		ELF (32|64)-bit.*$
+ %__elf_flags		exeonly
++%__elf_exclude_path     ^(/usr/lib/debug|(/usr)?/lib(64)?/(i686|x86_64|sse2|haswell|tls))/
+diff --git a/fileattrs/elfoptimized.attr b/fileattrs/elfoptimized.attr
+new file mode 100644
+index 000000000..4d8100edb
+--- /dev/null
++++ b/fileattrs/elfoptimized.attr
+@@ -0,0 +1,4 @@
++%__elfoptimized_requires		%{_rpmconfigdir}/elfdeps --requires %{?__filter_GLIBC_PRIVATE:--filter-private}
++%__elfoptimized_magic		ELF (32|64)-bit.*$
++%__elfoptimized_flags		exeonly
++%__elfoptimized_path		^(/usr)?/lib(64)?/(i686|x86_64|sse2|haswell|tls)/
+-- 
+2.23.0
+

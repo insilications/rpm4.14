@@ -1,12 +1,12 @@
-From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Dimitri John Ledkov <dimitri.j.ledkov@intel.com>
-Date: Tue, 10 Mar 2015 10:52:01 +0000
-Subject: [PATCH] Add ldconfig post transaction hook.
+From 43ad41494bc97740ecab852164c7b380591abb8a Mon Sep 17 00:00:00 2001
+From: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Date: Thu, 19 Sep 2019 14:35:00 -0700
+Subject: [PATCH 28/34] Add ldconfig post transaction hook.
 
-Because autospec does not generate any %post.
-This also will reduce amount of calls to ldconfig, when all the manual
-%post are dropped.
+Because autospec does not generate any %post. This also will reduce amount of calls
+to ldconfig, when all the manual %post are dropped.
 
+Ported-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
 Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
 ---
  macros.in           |  1 +
@@ -16,32 +16,35 @@ Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
  create mode 100644 plugins/ldconfig.c
 
 diff --git a/macros.in b/macros.in
-index 2ada48b..cb81b26 100644
+index a6069ee4d..bf0fb2e82 100644
 --- a/macros.in
 +++ b/macros.in
-@@ -1040,6 +1040,7 @@ done \
- %__transaction_systemd_inhibit	%{__plugindir}/systemd_inhibit.so
- %__transaction_selinux		%{__plugindir}/selinux.so
+@@ -1174,6 +1174,7 @@ package or when debugging this package.\
  %__transaction_syslog		%{__plugindir}/syslog.so
+ %__transaction_ima		%{__plugindir}/ima.so
+ %__transaction_prioreset	%{__plugindir}/prioreset.so
 +%__transaction_ldconfig		%{__plugindir}/ldconfig.so
  
  #------------------------------------------------------------------------------
  # Macros for further automated spec %setup and patch application
 diff --git a/plugins/Makefile.am b/plugins/Makefile.am
-index 53b2450..ad0967b 100644
+index ab4eee34f..120f456d7 100644
 --- a/plugins/Makefile.am
 +++ b/plugins/Makefile.am
-@@ -31,3 +31,7 @@ endif
- syslog_la_SOURCES = syslog.c
+@@ -37,6 +37,10 @@ syslog_la_SOURCES = syslog.c
  syslog_la_LIBADD = $(top_builddir)/lib/librpm.la $(top_builddir)/rpmio/librpmio.la
  plugins_LTLIBRARIES += syslog.la
-+
+ 
 +ldconfig_la_SOURCES = ldconfig.c
 +ldconfig_la_LIBADD = $(top_builddir)/lib/librpm.la $(top_builddir)/rpmio/librpmio.la
 +plugins_LTLIBRARIES += ldconfig.la
++
+ if IMA
+ ima_la_sources = ima.c
+ ima_la_LIBADD = $(top_builddir)/lib/librpm.la $(top_builddir)/rpmio/librpmio.la
 diff --git a/plugins/ldconfig.c b/plugins/ldconfig.c
 new file mode 100644
-index 0000000..5ab54ba
+index 000000000..5ab54ba20
 --- /dev/null
 +++ b/plugins/ldconfig.c
 @@ -0,0 +1,36 @@
@@ -81,3 +84,6 @@ index 0000000..5ab54ba
 +struct rpmPluginHooks_s ldconfig_hooks = {
 +    .tsm_post = ldconfig_tsm_post,
 +};
+-- 
+2.23.0
+

@@ -1,0 +1,23 @@
+# 4.10 patches
+0002-Ensure-lib-is-used-and-not-lib64.patch
+0004-Fix-32bit-kernel-builds-by-not-using-eu-strip.patch
+0017-add-an-fflush.patch
+0020-skip-pkgconfig-dep.patch
+0021-Relocate-debuginfo-to-usr-share-debug.patch
+0023-Don-t-emit-compiler-version-requirement.patch
+
+# (4.10 -> 4.14) ported patches
+0024-debuginfo-do-not-strip-static-libraries.patch
+0025-scripts-Don-t-bail-out-when-debugedit-fails.patch
+0026-fileattrs-Ensure-we-match-all-binaries-for-elf-depen.patch
+0027-Don-t-fail-a-build-if-build-id-is-a-duplicate.patch
+0028-Add-ldconfig-post-transaction-hook.patch
+0029-support-lib32-pkgconfig-files.patch
+0030-preserve-timestamps.patch
+0031-skip-datasync.patch
+0032-rpm-use-localhost-as-hostname-for-building-all-packa.patch
+0033-fileattrs-Don-t-scan-libraries-in-glibc-auto-search-.patch
+0034-Force-locale-files-not-to-be-executable.patch
+
+# 4.14 patches
+0100-discover-uid0-based-on-usr-share-defaults.patch

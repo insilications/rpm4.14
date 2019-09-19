@@ -1,3 +1,5 @@
 PKG_NAME := rpm
-URL :=http://rpm.org/releases/rpm-4.10.x/rpm-4.10.3.1.tar.bz2
+URL = http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
+ARCHIVES = 
+
 include ../common/Makefile.common

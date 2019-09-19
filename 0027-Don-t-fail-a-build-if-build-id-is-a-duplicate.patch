@@ -1,0 +1,26 @@
+From eb44443921f92a2cc9abc636d22a884dd3809bfa Mon Sep 17 00:00:00 2001
+From: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Date: Thu, 19 Sep 2019 14:14:28 -0700
+Subject: [PATCH 27/34] Don't fail a build if build-id is a duplicate
+
+Ported-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
+---
+ scripts/find-debuginfo.sh | 1 -
+ 1 file changed, 1 deletion(-)
+
+diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
+index 77e18278a..fbde6a62e 100755
+--- a/scripts/find-debuginfo.sh
++++ b/scripts/find-debuginfo.sh
+@@ -377,7 +377,6 @@ do_file()
+ 			      -l "$SOURCEFILE" "$f") || return
+   if [ -z "$id" ]; then
+     echo >&2 "*** ${strict_error}: No build ID note found in $f"
+-    $strict && exit 2
+   fi
+ 
+   # Add .gdb_index if requested.
+-- 
+2.23.0
+

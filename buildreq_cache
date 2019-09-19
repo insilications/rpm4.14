@@ -1,0 +1,13 @@
+4.14.2.1
+acl-dev
+bison
+bzip2-dev
+db-dev
+doxygen
+elfutils-dev
+gnupg
+nspr-dev
+pkgconfig(nss)
+pkgconfig(zlib)
+popt-dev
+xz-dev

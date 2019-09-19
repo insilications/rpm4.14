@@ -1,0 +1,46 @@
+From 29cd4885d65a448fe35dce4674f8097e948939ed Mon Sep 17 00:00:00 2001
+From: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Date: Thu, 19 Sep 2019 14:48:40 -0700
+Subject: [PATCH 32/34] rpm: use 'localhost' as hostname for building all
+ packages.
+
+Ported-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
+---
+ build/pack.c | 18 +-----------------
+ 1 file changed, 1 insertion(+), 17 deletions(-)
+
+diff --git a/build/pack.c b/build/pack.c
+index 1348b5f67..59dfceb43 100644
+--- a/build/pack.c
++++ b/build/pack.c
+@@ -179,25 +179,9 @@ static const char * buildHost(void)
+ {
+     static char hostname[1024];
+     static int oneshot = 0;
+-    struct hostent *hbn;
+-    char *bhMacro;
+ 
+     if (! oneshot) {
+-        bhMacro = rpmExpand("%{?_buildhost}", NULL);
+-        if (strcmp(bhMacro, "") != 0 && strlen(bhMacro) < 1024) {
+-            strcpy(hostname, bhMacro);
+-        } else {
+-            if (strcmp(bhMacro, "") != 0)
+-                rpmlog(RPMLOG_WARNING, _("The _buildhost macro is too long\n"));
+-            (void) gethostname(hostname, sizeof(hostname));
+-            hbn = gethostbyname(hostname);
+-            if (hbn)
+-                strcpy(hostname, hbn->h_name);
+-            else
+-                rpmlog(RPMLOG_WARNING,
+-                        _("Could not canonicalize hostname: %s\n"), hostname);
+-        }
+-        free(bhMacro);
++        strncpy(hostname, "localhost", 10);
+         oneshot = 1;
+     }
+     return(hostname);
+-- 
+2.23.0
+

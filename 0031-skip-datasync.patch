@@ -1,0 +1,27 @@
+From 54a211b62a3727c924d798bdbe92acdae36e9585 Mon Sep 17 00:00:00 2001
+From: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Date: Thu, 19 Sep 2019 14:46:41 -0700
+Subject: [PATCH 31/34] skip datasync
+
+Ported-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
+---
+ lib/backend/db3.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/lib/backend/db3.c b/lib/backend/db3.c
+index da50dfda4..1acc85f48 100644
+--- a/lib/backend/db3.c
++++ b/lib/backend/db3.c
+@@ -554,6 +554,8 @@ static int dbiSync(dbiIndex dbi, unsigned int flags)
+     DB * db = dbi->dbi_db;
+     int rc = 0;
+ 
++    return rc;
++
+     if (db != NULL && !dbi->cfg.dbi_no_dbsync) {
+ 	rc = db->sync(db, flags);
+ 	rc = cvtdberr(dbi, "db->sync", rc, _debug);
+-- 
+2.23.0
+

@@ -1,0 +1,33 @@
+From a72cfd41ce20864d82f657bc9cc38e2d863a1872 Mon Sep 17 00:00:00 2001
+From: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Date: Thu, 19 Sep 2019 14:00:39 -0700
+Subject: [PATCH 25/34] scripts: Don't bail out when debugedit fails
+
+In certain instances debugedit might just fail, and there is nothing we can
+really do about it due to each individual package altering CFLAGS, LDFLAGs,
+etc. Now we'll just gracefully continue to the next file in the list if
+this happens, and leave the packager to continue with other issues
+if needed.
+
+Ported-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
+Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
+---
+ scripts/find-debuginfo.sh | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
+index fa26a8ecc..77e18278a 100755
+--- a/scripts/find-debuginfo.sh
++++ b/scripts/find-debuginfo.sh
+@@ -374,7 +374,7 @@ do_file()
+   id=$(${lib_rpm_dir}/debugedit -b "$debug_base_name" -d "$debug_dest_name" \
+ 			      $no_recompute -i \
+ 			      ${build_id_seed:+--build-id-seed="$build_id_seed"} \
+-			      -l "$SOURCEFILE" "$f") || exit
++			      -l "$SOURCEFILE" "$f") || return
+   if [ -z "$id" ]; then
+     echo >&2 "*** ${strict_error}: No build ID note found in $f"
+     $strict && exit 2
+-- 
+2.23.0
+

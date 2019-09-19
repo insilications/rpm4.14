@@ -1,0 +1,6 @@
+--enable-python
+--without-lua
+--with-acl
+--enable-nls
+--without-internal-beecrypt
+--without-selinux

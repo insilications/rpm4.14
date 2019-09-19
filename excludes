@@ -1,0 +1,8 @@
+# This file contains the output files that need %exclude. Full path
+# names, one per line.
+/usr/lib/rpm/debugedit
+/usr/lib64/librpmio.so.8
+/usr/lib64/librpmio.so.8.1.0
+/usr/lib64/librpmio.so
+/usr/lib/rpm/fileattrs/perl.attr
+/usr/lib/rpm/fileattrs/perllib.attr
