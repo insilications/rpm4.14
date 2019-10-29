@@ -1,4 +1,4 @@
-From ca0c209112ba2038f38ac52b413921b1eaea4430 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Auke Kok <auke-jan.h.kok@intel.com>
 Date: Tue, 27 Aug 2019 11:00:34 -0700
 Subject: [PATCH] Don't emit compiler version requirement.
@@ -19,6 +19,3 @@ index 5fd0870..8246c8d 100644
 -%__ocaml_requires	%{_rpmconfigdir}/ocaml-find-requires.sh
 +%__ocaml_requires	%{_rpmconfigdir}/ocaml-find-requires.sh -c
  %__ocaml_magic		^(Objective caml|OCaml) .*$
--- 
-2.23.0
-

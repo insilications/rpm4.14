@@ -2,7 +2,7 @@
 
 Name:           rpm
 Version:        4.12.0.2
-Release:        92
+Release:        93
 License:        LGPL-2.1
 Summary:        The RPM package management system
 Url:            http://rpm.org/
@@ -31,7 +31,8 @@ Patch20:        0020-skip-pkgconfig-dep.patch
 Patch21:        0021-Relocate-debuginfo-to-usr-share-debug.patch
 Patch22:        0022-Backport-patch-to-fix-creation-of-large-packages.patch
 Patch23:        0023-Don-t-emit-compiler-version-requirement.patch
-Patch24:        CVE-2017-7501.patch
+Patch24:        0024-rpm2archive-return-0-on-success-instead-of-stop-iter.patch
+Patch25:        CVE-2017-7501.patch
 
 BuildRequires:  bzip2-dev
 BuildRequires:  db-dev
@@ -174,6 +175,7 @@ This package contains language translation files for rpm package.
 %patch22 -p1
 %patch23 -p1
 %patch24 -p1
+%patch25 -p1
 
 %build
 autoreconf -fi
