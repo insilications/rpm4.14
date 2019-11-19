@@ -1,5 +1,4 @@
 # This file contains the output files that need %exclude. Full path
 # names, one per line.
-/usr/lib/rpm/debugedit
 /usr/lib/rpm/fileattrs/perl.attr
 /usr/lib/rpm/fileattrs/perllib.attr

@@ -4,7 +4,7 @@
 #
 Name     : rpm
 Version  : 4.14.2.1
-Release  : 121
+Release  : 122
 URL      : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Source0  : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Summary  : RPM Package Manager
@@ -17,7 +17,6 @@ Requires: rpm-locales = %{version}-%{release}
 Requires: rpm-man = %{version}-%{release}
 Requires: rpm-python = %{version}-%{release}
 Requires: rpm-python3 = %{version}-%{release}
-Requires: debugedit
 Requires: unzip
 Requires: zip
 BuildRequires : acl-dev
@@ -26,7 +25,6 @@ BuildRequires : automake-dev
 BuildRequires : bison
 BuildRequires : bzip2-dev
 BuildRequires : db-dev
-BuildRequires : debugedit
 BuildRequires : doxygen
 BuildRequires : elfutils-dev
 BuildRequires : file-dev
@@ -91,14 +89,6 @@ Requires: rpm = %{version}-%{release}
 
 %description dev
 dev components for the rpm package.
-
-
-%package extras
-Summary: extras components for the rpm package.
-Group: Default
-
-%description extras
-extras components for the rpm package.
 
 
 %package lib
@@ -179,7 +169,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1574186312
+export SOURCE_DATE_EPOCH=1574188906
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -204,14 +194,13 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1574186312
+export SOURCE_DATE_EPOCH=1574188906
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rpm
 cp %{_builddir}/rpm-4.14.2.1/COPYING %{buildroot}/usr/share/package-licenses/rpm/41fee52e30855f0bab4a1df3a3aa0147a67f8459
 %make_install
 %find_lang rpm
 ## Remove excluded files
-rm -f %{buildroot}/usr/lib/rpm/debugedit
 rm -f %{buildroot}/usr/lib/rpm/fileattrs/perl.attr
 rm -f %{buildroot}/usr/lib/rpm/fileattrs/perllib.attr
 
@@ -232,6 +221,7 @@ rm -f %{buildroot}/usr/lib/rpm/fileattrs/perllib.attr
 /usr/lib/rpm/check-rpaths-worker
 /usr/lib/rpm/config.guess
 /usr/lib/rpm/config.sub
+/usr/lib/rpm/debugedit
 /usr/lib/rpm/debuginfo.prov
 /usr/lib/rpm/desktop-file.prov
 /usr/lib/rpm/elfdeps
@@ -404,17 +394,14 @@ rm -f %{buildroot}/usr/lib/rpm/fileattrs/perllib.attr
 /usr/lib64/librpmsign.so
 /usr/lib64/pkgconfig/rpm.pc
 
-%files extras
-%defattr(-,root,root,-)
-/usr/lib64/librpmio.so.8
-/usr/lib64/librpmio.so.8.1.0
-
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/librpm.so.8
 /usr/lib64/librpm.so.8.1.0
 /usr/lib64/librpmbuild.so.8
 /usr/lib64/librpmbuild.so.8.1.0
+/usr/lib64/librpmio.so.8
+/usr/lib64/librpmio.so.8.1.0
 /usr/lib64/librpmsign.so.8
 /usr/lib64/librpmsign.so.8.1.0
 /usr/lib64/rpm-plugins/ima.so

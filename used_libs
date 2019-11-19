@@ -15,6 +15,5 @@ libnss3.so
 libpopt.so.0
 libpthread.so.0
 libpython3.7m.so.1.0
-librpmio.so.8
 libz.so.1
 libzstd.so.1
