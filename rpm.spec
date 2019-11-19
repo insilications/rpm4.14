@@ -4,7 +4,7 @@
 #
 Name     : rpm
 Version  : 4.14.2.1
-Release  : 120
+Release  : 121
 URL      : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Source0  : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Summary  : RPM Package Manager
@@ -179,7 +179,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1574185741
+export SOURCE_DATE_EPOCH=1574186312
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -204,7 +204,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1574185741
+export SOURCE_DATE_EPOCH=1574186312
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rpm
 cp %{_builddir}/rpm-4.14.2.1/COPYING %{buildroot}/usr/share/package-licenses/rpm/41fee52e30855f0bab4a1df3a3aa0147a67f8459
@@ -400,12 +400,12 @@ rm -f %{buildroot}/usr/lib/rpm/fileattrs/perllib.attr
 /usr/include/rpm/rpmvf.h
 /usr/lib64/librpm.so
 /usr/lib64/librpmbuild.so
+/usr/lib64/librpmio.so
 /usr/lib64/librpmsign.so
 /usr/lib64/pkgconfig/rpm.pc
 
 %files extras
 %defattr(-,root,root,-)
-/usr/lib64/librpmio.so
 /usr/lib64/librpmio.so.8
 /usr/lib64/librpmio.so.8.1.0
 
