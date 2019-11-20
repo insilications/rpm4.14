@@ -21,3 +21,4 @@
 
 # 4.14 patches
 0100-discover-uid0-based-on-usr-share-defaults.patch
+0101-fix-debuginfo-build-id-matching-code.patch
