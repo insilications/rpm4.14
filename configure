@@ -4,3 +4,4 @@
 --enable-nls
 --without-internal-beecrypt
 --without-selinux
+--disable-inhibit-plugin

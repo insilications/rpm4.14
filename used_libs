@@ -4,7 +4,6 @@ libarchive.so.13
 libbz2.so.1.0
 libc.so.6
 libdb-5.3.so
-libdbus-1.so.3
 libdl.so.2
 libdw.so.1
 libelf.so.1

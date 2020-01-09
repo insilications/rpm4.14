@@ -4,7 +4,7 @@
 #
 Name     : rpm
 Version  : 4.14.2.1
-Release  : 130
+Release  : 131
 URL      : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Source0  : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Summary  : RPM Package Manager
@@ -181,7 +181,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1578502835
+export SOURCE_DATE_EPOCH=1578592165
 # -Werror is for werrorists
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
@@ -196,7 +196,8 @@ export CXXFLAGS="$CXXFLAGS -O3 -fcf-protection=full -ffat-lto-objects -flto=4 -f
 --with-acl \
 --enable-nls \
 --without-internal-beecrypt \
---without-selinux
+--without-selinux \
+--disable-inhibit-plugin
 make  %{?_smp_mflags}
 
 %check
@@ -207,7 +208,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1578502835
+export SOURCE_DATE_EPOCH=1578592165
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rpm
 cp %{_builddir}/rpm-4.14.2.1/COPYING %{buildroot}/usr/share/package-licenses/rpm/41fee52e30855f0bab4a1df3a3aa0147a67f8459
@@ -424,7 +425,6 @@ rm -f %{buildroot}/usr/lib/rpm/fileattrs/perllib.attr
 /usr/lib64/rpm-plugins/ldconfig.so
 /usr/lib64/rpm-plugins/prioreset.so
 /usr/lib64/rpm-plugins/syslog.so
-/usr/lib64/rpm-plugins/systemd_inhibit.so
 
 %files license
 %defattr(0644,root,root,0755)
