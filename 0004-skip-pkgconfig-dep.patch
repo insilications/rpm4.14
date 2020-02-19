@@ -8,10 +8,10 @@ Subject: [PATCH] skip pkgconfig dep
  1 file changed, 1 deletion(-)
 
 diff --git a/scripts/pkgconfigdeps.sh b/scripts/pkgconfigdeps.sh
-index 270dd74..760d0e6 100755
+index ef45818..202c5f8 100755
 --- a/scripts/pkgconfigdeps.sh
 +++ b/scripts/pkgconfigdeps.sh
-@@ -41,7 +41,6 @@ case $1 in
+@@ -44,7 +44,6 @@ case $1 in
      case "${filename}" in
      *.pc)
  	i="`expr $i + 1`"

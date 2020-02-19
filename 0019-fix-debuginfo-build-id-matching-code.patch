@@ -1,4 +1,4 @@
-From 79c11b4e06c2627c90f4571f8cacfc6b6462cba3 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
 Date: Tue, 19 Nov 2019 13:39:44 -0800
 Subject: [PATCH] fix debuginfo build-id matching code
@@ -13,7 +13,7 @@ Signed-off-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/build/files.c b/build/files.c
-index ca3e4a9e1..f8c30dbed 100644
+index 2de6c9b..71d3c8d 100644
 --- a/build/files.c
 +++ b/build/files.c
 @@ -47,8 +47,8 @@
@@ -27,6 +27,3 @@ index ca3e4a9e1..f8c30dbed 100644
  #define DEBUG_DWZ_DIR 		"/usr/lib/debug/.dwz"
  
  #undef HASHTYPE
--- 
-2.24.0
-

@@ -1,7 +1,7 @@
-From 28b3aa18cf5defb9bc9484248b391b1ca85ad15e Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
 Date: Thu, 19 Sep 2019 14:54:32 -0700
-Subject: [PATCH 34/34] Force locale files not to be executable.
+Subject: [PATCH] Force locale files not to be executable.
 
 Ported-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
 Signed-off-by: Auke Kok <auke-jan.h.kok@intel.com>
@@ -10,7 +10,7 @@ Signed-off-by: Auke Kok <auke-jan.h.kok@intel.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/scripts/find-lang.sh b/scripts/find-lang.sh
-index fdca18ec4..294b09fe7 100755
+index fdca18e..294b09f 100755
 --- a/scripts/find-lang.sh
 +++ b/scripts/find-lang.sh
 @@ -109,6 +109,8 @@ if [ -f $MO_NAME ]; then
@@ -22,6 +22,3 @@ index fdca18ec4..294b09fe7 100755
  for NAME in ${NAMES[@]}; do
  
  find "$TOP_DIR" -type f -o -type l|sed '
--- 
-2.23.0
-

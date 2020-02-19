@@ -13,10 +13,10 @@ Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
  1 file changed, 2 insertions(+)
 
 diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
-index 45cb6ac..759da2d 100644
+index 779a9ff..87e9511 100755
 --- a/scripts/find-debuginfo.sh
 +++ b/scripts/find-debuginfo.sh
-@@ -395,3 +395,5 @@ if ((nout > 0)); then
+@@ -674,3 +674,5 @@ if ((nout > 0)); then
    cat "$LISTFILE" >> "${LISTFILE}.new"
    mv "${LISTFILE}.new" "$LISTFILE"
  fi

@@ -1,8 +1,7 @@
-From c252a7a3eec595a466944ac93951c98d2654c0df Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
 Date: Thu, 19 Sep 2019 14:06:05 -0700
-Subject: [PATCH 26/34] fileattrs: Ensure we match all binaries for elf
- dependencies
+Subject: [PATCH] fileattrs: Ensure we match all binaries for elf dependencies
 
 Ported-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
 Signed-off-by: Michael Ikey Doherty <michael.i.doherty@intel.com>
@@ -11,7 +10,7 @@ Signed-off-by: Michael Ikey Doherty <michael.i.doherty@intel.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fileattrs/elf.attr b/fileattrs/elf.attr
-index 5805dd0ee..060ddc081 100644
+index 5805dd0..060ddc0 100644
 --- a/fileattrs/elf.attr
 +++ b/fileattrs/elf.attr
 @@ -1,4 +1,4 @@
@@ -20,6 +19,3 @@ index 5805dd0ee..060ddc081 100644
 -%__elf_magic		^(setuid,? )?(setgid,? )?(sticky )?ELF (32|64)-bit.*$
 +%__elf_magic		ELF (32|64)-bit.*$
  %__elf_flags		exeonly
--- 
-2.23.0
-

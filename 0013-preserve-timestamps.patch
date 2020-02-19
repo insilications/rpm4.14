@@ -1,7 +1,7 @@
-From fcc7a4bdeffd778b8ed623e9a74739b04ea22f7a Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
 Date: Thu, 19 Sep 2019 14:44:36 -0700
-Subject: [PATCH 30/34] preserve timestamps
+Subject: [PATCH] preserve timestamps
 
 Port note: the pack.c bits were added upstream by commit:
 b8a54d6a1e9bb6140b6b47e23dc707e4b967537e
@@ -17,7 +17,7 @@ Signed-off-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
  5 files changed, 5 insertions(+), 5 deletions(-)
 
 diff --git a/scripts/brp-strip b/scripts/brp-strip
-index 5e645669c..b56957f5b 100755
+index 5e64566..b56957f 100755
 --- a/scripts/brp-strip
 +++ b/scripts/brp-strip
 @@ -16,5 +16,5 @@ for f in `find "$RPM_BUILD_ROOT" -type f \( -perm -0100 -or -perm -0010 -or -per
@@ -28,7 +28,7 @@ index 5e645669c..b56957f5b 100755
 +	$STRIP -p -g "$f" || :
  done
 diff --git a/scripts/brp-strip-comment-note b/scripts/brp-strip-comment-note
-index 833ac78e5..f668ba34e 100755
+index 833ac78..f668ba3 100755
 --- a/scripts/brp-strip-comment-note
 +++ b/scripts/brp-strip-comment-note
 @@ -22,5 +22,5 @@ for f in `find "$RPM_BUILD_ROOT" -type f \( -perm -0100 -or -perm -0010 -or -per
@@ -39,7 +39,7 @@ index 833ac78e5..f668ba34e 100755
 +	$STRIP -p -R .comment $note "$f" || :
  done
 diff --git a/scripts/brp-strip-shared b/scripts/brp-strip-shared
-index 51d10d5b3..b9eaa5fef 100644
+index 51d10d5..b9eaa5f 100644
 --- a/scripts/brp-strip-shared
 +++ b/scripts/brp-strip-shared
 @@ -21,5 +21,5 @@ for f in `find "$RPM_BUILD_ROOT" -type f -a -exec file {} \; | \
@@ -50,7 +50,7 @@ index 51d10d5b3..b9eaa5fef 100644
 +	$STRIP -p --strip-unneeded "$f"
  done
 diff --git a/scripts/brp-strip-static-archive b/scripts/brp-strip-static-archive
-index ddd3b2422..3f3542c7c 100755
+index ddd3b24..3f3542c 100755
 --- a/scripts/brp-strip-static-archive
 +++ b/scripts/brp-strip-static-archive
 @@ -16,5 +16,5 @@ for f in `find "$RPM_BUILD_ROOT" -type f -a -exec file {} \; | \
@@ -61,7 +61,7 @@ index ddd3b2422..3f3542c7c 100755
 +	$STRIP -p -g "$f"
  done
 diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
-index fbde6a62e..a27fc1c3a 100755
+index ac24beb..c3615e7 100755
 --- a/scripts/find-debuginfo.sh
 +++ b/scripts/find-debuginfo.sh
 @@ -237,7 +237,7 @@ strip_to_debug()
@@ -73,6 +73,3 @@ index fbde6a62e..a27fc1c3a 100755
    chmod 444 "$1" || exit
  }
  
--- 
-2.23.0
-

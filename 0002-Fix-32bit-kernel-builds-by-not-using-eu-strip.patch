@@ -10,15 +10,16 @@ in the BUILDIR).
 
 Change-Id: I8c24eaab9e0ac1dfe21484522ce4e415d21fcb14
 Signed-off-by: William Douglas <william.douglas@intel.com>
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
 ---
  scripts/find-debuginfo.sh | 34 +++++++++++++++++++++++++++++-----
  1 file changed, 29 insertions(+), 5 deletions(-)
 
 diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
-index c4c1c1d..d168fa9 100644
+index 73275a1..779a9ff 100755
 --- a/scripts/find-debuginfo.sh
 +++ b/scripts/find-debuginfo.sh
-@@ -253,12 +253,36 @@ while read nlinks inum f; do
+@@ -396,12 +396,36 @@ do_file()
    esac
  
    mkdir -p "${debugdn}"
@@ -59,4 +60,4 @@ index c4c1c1d..d168fa9 100644
 +      fi
    fi
  
-   if [ -n "$id" ]; then
+   # strip -g implies we have full symtab, don't add mini symtab in that case.

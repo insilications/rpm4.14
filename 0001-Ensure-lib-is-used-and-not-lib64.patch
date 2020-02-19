@@ -9,10 +9,10 @@ Signed-off-by: Michael Ikey Doherty <michael.i.doherty@intel.com>
  1 file changed, 4 insertions(+), 3 deletions(-)
 
 diff --git a/installplatform b/installplatform
-index 98b87f3..e641470 100755
+index 12339fc..6bc7b9d 100755
 --- a/installplatform
 +++ b/installplatform
-@@ -130,9 +130,10 @@ for ARCH in noarch `grep ^arch_canon $RPMRC | cut -d: -f2`; do
+@@ -190,9 +190,10 @@ for ARCH in noarch `grep ^arch_canon $RPMRC | cut -d: -f2`; do
    # skip architectures for which we dont have full config parameters
    [ -z "$CANONARCH" ] && continue
  

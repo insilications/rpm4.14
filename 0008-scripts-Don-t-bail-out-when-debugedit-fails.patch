@@ -1,7 +1,7 @@
-From a72cfd41ce20864d82f657bc9cc38e2d863a1872 Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
 Date: Thu, 19 Sep 2019 14:00:39 -0700
-Subject: [PATCH 25/34] scripts: Don't bail out when debugedit fails
+Subject: [PATCH] scripts: Don't bail out when debugedit fails
 
 In certain instances debugedit might just fail, and there is nothing we can
 really do about it due to each individual package altering CFLAGS, LDFLAGs,
@@ -16,7 +16,7 @@ Signed-off-by: Ikey Doherty <michael.i.doherty@intel.com>
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/scripts/find-debuginfo.sh b/scripts/find-debuginfo.sh
-index fa26a8ecc..77e18278a 100755
+index 3c7c61f..fa677f3 100755
 --- a/scripts/find-debuginfo.sh
 +++ b/scripts/find-debuginfo.sh
 @@ -374,7 +374,7 @@ do_file()
@@ -28,6 +28,3 @@ index fa26a8ecc..77e18278a 100755
    if [ -z "$id" ]; then
      echo >&2 "*** ${strict_error}: No build ID note found in $f"
      $strict && exit 2
--- 
-2.23.0
-

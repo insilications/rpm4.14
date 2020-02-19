@@ -1,8 +1,7 @@
-From 29cd4885d65a448fe35dce4674f8097e948939ed Mon Sep 17 00:00:00 2001
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
 Date: Thu, 19 Sep 2019 14:48:40 -0700
-Subject: [PATCH 32/34] rpm: use 'localhost' as hostname for building all
- packages.
+Subject: [PATCH] rpm: use 'localhost' as hostname for building all packages.
 
 Ported-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
 Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
@@ -11,7 +10,7 @@ Signed-off-by: Thiago Macieira <thiago.macieira@intel.com>
  1 file changed, 1 insertion(+), 17 deletions(-)
 
 diff --git a/build/pack.c b/build/pack.c
-index 1348b5f67..59dfceb43 100644
+index 1348b5f..59dfceb 100644
 --- a/build/pack.c
 +++ b/build/pack.c
 @@ -179,25 +179,9 @@ static const char * buildHost(void)
@@ -41,6 +40,3 @@ index 1348b5f67..59dfceb43 100644
          oneshot = 1;
      }
      return(hostname);
--- 
-2.23.0
-
