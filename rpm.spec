@@ -4,7 +4,7 @@
 #
 Name     : rpm
 Version  : 4.14.2.1
-Release  : 133
+Release  : 134
 URL      : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Source0  : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Summary  : RPM Package Manager
@@ -67,6 +67,7 @@ Patch16: 0016-fileattrs-Don-t-scan-libraries-in-glibc-auto-search-.patch
 Patch17: 0017-Force-locale-files-not-to-be-executable.patch
 Patch18: 0018-discover-uid0-based-on-usr-share-defaults.patch
 Patch19: 0019-fix-debuginfo-build-id-matching-code.patch
+Patch20: 0020-Skip-HEREDOCs-when-parsing-perl-virtual-Provides.patch
 
 %description
 This is RPM, the RPM Package Manager.
@@ -87,7 +88,6 @@ Group: Development
 Requires: rpm-lib = %{version}-%{release}
 Requires: rpm-bin = %{version}-%{release}
 Provides: rpm-devel = %{version}-%{release}
-Requires: rpm = %{version}-%{release}
 Requires: rpm = %{version}-%{release}
 
 %description dev
@@ -175,22 +175,22 @@ cd %{_builddir}/rpm-4.14.2.1
 %patch17 -p1
 %patch18 -p1
 %patch19 -p1
+%patch20 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1583220964
-# -Werror is for werrorists
+export SOURCE_DATE_EPOCH=1583445896
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -fcf-protection=full -ffat-lto-objects -flto=4 -fstack-protector-strong "
-export FCFLAGS="$CFLAGS -O3 -fcf-protection=full -ffat-lto-objects -flto=4 -fstack-protector-strong "
-export FFLAGS="$CFLAGS -O3 -fcf-protection=full -ffat-lto-objects -flto=4 -fstack-protector-strong "
-export CXXFLAGS="$CXXFLAGS -O3 -fcf-protection=full -ffat-lto-objects -flto=4 -fstack-protector-strong "
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
 %reconfigure --disable-static --enable-python \
 --without-lua \
 --with-acl \
@@ -208,7 +208,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1583220964
+export SOURCE_DATE_EPOCH=1583445896
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rpm
 cp %{_builddir}/rpm-4.14.2.1/COPYING %{buildroot}/usr/share/package-licenses/rpm/41fee52e30855f0bab4a1df3a3aa0147a67f8459

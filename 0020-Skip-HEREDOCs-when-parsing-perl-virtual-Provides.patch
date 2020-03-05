@@ -1,0 +1,126 @@
+From 897bdb2f4a6e412644efe00a5ce6034198be978c Mon Sep 17 00:00:00 2001
+From: "Brett T. Warden" <brett.t.warden@intel.com>
+Date: Thu, 5 Mar 2020 13:11:24 -0800
+Subject: [PATCH 20/20] Skip HEREDOCs when parsing perl virtual Provides
+
+As noted in particular with App::cpanminus, a lot of perl virtual
+provides are created that the package *doesn't actually provide*. This
+package uses Module::FatPack to embed required libraries that may not be
+already installed on the system, which defines them in HEREDOCs for
+later use.
+
+The only other example where I found package code completely within a
+HEREDOC was in Mail::Sender, and that code is intended to be used only
+privately within Mail::Sender itself. This seems like a valid set of
+code to explicitly ignore.
+
+This is an attempt to make the parser identify, then skip, HEREDOCs when
+looking for provided packages.
+---
+
+
+This is a patch for the upstream rpm package, and I plan to submit a PR
+there:
+https://github.com/rpm-software-management/rpm/issues/1106
+
+
+ scripts/perl.prov | 66 ++++++++++++++++++++++++++++++-----------------
+ 1 file changed, 42 insertions(+), 24 deletions(-)
+
+diff --git a/scripts/perl.prov b/scripts/perl.prov
+index bcd7018..17f7dea 100755
+--- a/scripts/perl.prov
++++ b/scripts/perl.prov
+@@ -89,40 +89,54 @@ sub process_file {
+     return;
+   }
+ 
+-  my ($package, $version, $incomment, $inover) = ();
++  my ($package, $version, $incomment, $inover, $inheredoc) = ();
+ 
+   while (<FILE>) {
+ 
+-    # skip the documentation
++    # Skip contents of HEREDOCs
++    if (! defined $inheredoc) {
++      # skip the documentation
+ 
+-    # we should not need to have item in this if statement (it
+-    # properly belongs in the over/back section) but people do not
+-    # read the perldoc.
++      # we should not need to have item in this if statement (it
++      # properly belongs in the over/back section) but people do not
++      # read the perldoc.
+ 
+-    if (m/^=(head[1-4]|pod|for|item)/) {
+-      $incomment = 1;
+-    }
++      if (m/^=(head[1-4]|pod|for|item)/) {
++        $incomment = 1;
++      }
+ 
+-    if (m/^=(cut)/) {
+-      $incomment = 0;
+-      $inover = 0;
+-    }
++      if (m/^=(cut)/) {
++        $incomment = 0;
++        $inover = 0;
++      }
+ 
+-    if (m/^=(over)/) {
+-      $inover = 1;
+-    }
++      if (m/^=(over)/) {
++        $inover = 1;
++      }
+ 
+-    if (m/^=(back)/) {
+-      $inover = 0;
+-    }
++      if (m/^=(back)/) {
++        $inover = 0;
++      }
+ 
+-    if ($incomment || $inover || m/^\s*#/) {
+-       next;
+-    }
++      if ($incomment || $inover || m/^\s*#/) {
++        next;
++      }
++
++      # skip the data section
++      if (m/^__(DATA|END)__$/) {
++        last;
++      }
+ 
+-    # skip the data section
+-    if (m/^__(DATA|END)__$/) {
+-      last;
++      # Find the start of a HEREDOC
++      if (m/<<\s*[\"\'](\w+)[\"\']\s*;\s*$/) {
++        $inheredoc = $1;
++      }
++    } else {
++      # We're in a HEREDOC; continue until the end of it
++      if (m/^$inheredoc\s*$/) {
++        $inheredoc = undef;
++      }
++      next;
+     }
+ 
+     # not everyone puts the package name of the file as the first
+@@ -197,6 +211,10 @@ sub process_file {
+ 
+   }
+ 
++  if (defined $inheredoc) {
++	  die "Unclosed HEREDOC [$inheredoc] in file: '$file'\n";
++  }
++
+   close(FILE) ||
+     die("$0: Could not close file: '$file' : $!\n");
+ 
+-- 
+2.25.1
+
