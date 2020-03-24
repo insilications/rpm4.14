@@ -9,19 +9,21 @@ to match prefixed by /usr/lib/debug.
 
 Signed-off-by: Leandro Dorileo <leandro.maciel.dorileo@intel.com>
 ---
- build/files.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ build/files.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/build/files.c b/build/files.c
-index 2de6c9b..71d3c8d 100644
+index 2de6c9b..10b88ad 100644
 --- a/build/files.c
 +++ b/build/files.c
-@@ -47,8 +47,8 @@
+@@ -46,9 +46,9 @@
+  */
  #define BUILD_ID_DIR		"/usr/lib/.build-id"
  #define DEBUG_SRC_DIR		"/usr/src/debug"
- #define DEBUG_LIB_DIR		"/usr/lib/debug"
+-#define DEBUG_LIB_DIR		"/usr/lib/debug"
 -#define DEBUG_LIB_PREFIX	"/usr/lib/debug/"
 -#define DEBUG_ID_DIR		"/usr/lib/debug/.build-id"
++#define DEBUG_LIB_DIR		"/usr/share/debug"
 +#define DEBUG_LIB_PREFIX	"/usr/share/debug/"
 +#define DEBUG_ID_DIR		"/usr/share/debug/.build-id"
  #define DEBUG_DWZ_DIR 		"/usr/lib/debug/.dwz"
