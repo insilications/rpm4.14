@@ -1,0 +1,206 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Patrick McCarty <patrick.mccarty@intel.com>
+Date: Wed, 25 Mar 2020 16:09:38 -0700
+Subject: [PATCH] Disable mono fileattrs
+
+This is a backport of this change from upstream master:
+https://github.com/rpm-software-management/rpm/pull/676
+
+The change is also present in the latest rpm release as of this writing,
+4.15.1.
+
+Upstream-Status: Backport
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ fileattrs/Makefile.am      |  3 +-
+ fileattrs/mono.attr        |  3 --
+ scripts/Makefile.am        |  2 -
+ scripts/mono-find-provides | 42 -------------------
+ scripts/mono-find-requires | 86 --------------------------------------
+ 5 files changed, 1 insertion(+), 135 deletions(-)
+ delete mode 100644 fileattrs/mono.attr
+ delete mode 100644 scripts/mono-find-provides
+ delete mode 100644 scripts/mono-find-requires
+
+diff --git a/fileattrs/Makefile.am b/fileattrs/Makefile.am
+index 4485fdc..0740cdc 100644
+--- a/fileattrs/Makefile.am
++++ b/fileattrs/Makefile.am
+@@ -7,7 +7,6 @@ fattrsdir = $(rpmconfigdir)/fileattrs
+ 
+ fattrs_DATA = \
+ 	debuginfo.attr desktop.attr elf.attr elfoptimized.attr font.attr libtool.attr metainfo.attr \
+-	perl.attr perllib.attr pkgconfig.attr python.attr ocaml.attr script.attr \
+-	mono.attr
++	perl.attr perllib.attr pkgconfig.attr python.attr ocaml.attr script.attr
+ 
+ EXTRA_DIST = $(fattrs_DATA)
+diff --git a/fileattrs/mono.attr b/fileattrs/mono.attr
+deleted file mode 100644
+index 98dc8d9..0000000
+--- a/fileattrs/mono.attr
++++ /dev/null
+@@ -1,3 +0,0 @@
+-%__mono_provides	%{_rpmconfigdir}/mono-find-provides %{_builddir}/%{?buildsubdir} %{buildroot} %{_libdir}
+-%__mono_requires	%{_rpmconfigdir}/mono-find-requires %{_builddir}/%{?buildsubdir} %{buildroot} %{_libdir}
+-%__mono_magic		Mono/.Net assembly
+diff --git a/scripts/Makefile.am b/scripts/Makefile.am
+index ab1441d..6e0f8d9 100644
+--- a/scripts/Makefile.am
++++ b/scripts/Makefile.am
+@@ -19,7 +19,6 @@ EXTRA_DIST = \
+ 	tgpg vpkg-provides.sh \
+ 	find-requires find-provides \
+ 	find-requires.php find-provides.php \
+-	mono-find-requires mono-find-provides \
+ 	ocaml-find-requires.sh ocaml-find-provides.sh \
+ 	pkgconfigdeps.sh libtooldeps.sh metainfo.prov \
+ 	fontconfig.prov desktop-file.prov script.req \
+@@ -36,7 +35,6 @@ rpmconfig_SCRIPTS = \
+ 	perl.prov perl.req pythondeps.sh pythondistdeps.py \
+ 	python-macro-helper \
+ 	metainfo.prov \
+-	mono-find-requires mono-find-provides \
+ 	pkgconfigdeps.sh libtooldeps.sh \
+ 	ocaml-find-requires.sh ocaml-find-provides.sh \
+ 	fontconfig.prov desktop-file.prov script.req \
+diff --git a/scripts/mono-find-provides b/scripts/mono-find-provides
+deleted file mode 100644
+index 9348457..0000000
+--- a/scripts/mono-find-provides
++++ /dev/null
+@@ -1,42 +0,0 @@
+-#!/bin/bash
+-#
+-# mono-find-provides
+-#
+-# Authors:
+-#       Ben Maurer (bmaurer@ximian.com)
+-#
+-# (C) 2005 Novell (http://www.novell.com)
+-#
+-# Args: builddir buildroot libdir
+-
+-IFS=$'\n'
+-filelist=($(grep -Ev '/usr/doc/|/usr/share/doc/'))
+-monolist=($(printf "%s\n" "${filelist[@]}" | grep -E "\\.(exe|dll)\$"))
+-
+-# If monodis is in the package being installed, use that one
+-# This is to support building mono
+-build_bindir="$2/usr/bin"
+-build_libdir="$2$3"
+-
+-if [ -x $build_bindir/monodis ]; then
+-    monodis="$build_bindir/monodis"
+-    export LD_LIBRARY_PATH=$build_libdir${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+-elif [ -x /usr/bin/monodis ]; then
+-    monodis="/usr/bin/monodis"
+-else
+-    exit 0;
+-fi
+-
+-export MONO_SHARED_DIR=$1
+-
+-for i in "${monolist[@]}"; do
+-        ($monodis --assembly $i | awk '
+-                BEGIN { LIBNAME=""; VERSION=""; }
+-                /^Version:/ { VERSION=$2 }
+-                /^Name:/    { LIBNAME=$2 }
+-                END {
+-                        if (VERSION && LIBNAME)
+-                                print "mono(" LIBNAME ") = " VERSION
+-                }
+-            ') 2>/dev/null
+-done
+diff --git a/scripts/mono-find-requires b/scripts/mono-find-requires
+deleted file mode 100644
+index ea58cae..0000000
+--- a/scripts/mono-find-requires
++++ /dev/null
+@@ -1,86 +0,0 @@
+-#!/bin/bash
+-#
+-# mono-find-requires
+-#
+-# Authors:
+-#       Ben Maurer (bmaurer@ximian.com)
+-#
+-# (C) 2005 Novell (http://www.novell.com)
+-#
+-# Args: builddir buildroot libdir
+-
+-IFS=$'\n'
+-filelist=($(grep -Ev '/usr/doc/|/usr/share/doc/'))
+-monolist=($(printf "%s\n" "${filelist[@]}" | grep -E "\\.(exe|dll)\$"))
+-
+-# If monodis is in the package being installed, use that one
+-# This is to support building mono
+-build_bindir="$2/usr/bin"
+-build_libdir="$2$3"
+-
+-if [ -x $build_bindir/monodis ]; then
+-    monodis="$build_bindir/monodis"
+-    export LD_LIBRARY_PATH=$build_libdir${LD_LIBRARY_PATH:+:$LD_LIBRARY_PATH}
+-elif [ -x /usr/bin/monodis ]; then
+-    monodis="/usr/bin/monodis"
+-else
+-    exit 0;
+-fi
+-
+-export MONO_SHARED_DIR=$1
+-
+-REQUIRES=$(
+-	for i in "${monolist[@]}"; do
+-		($monodis --assemblyref $i | awk '
+-			BEGIN { START=0; LIBNAME=""; VERSION=""; }
+-			(START==0) && /^[0-9]+: Version=/ {
+-				START=1;
+-				sub(/Version=/, "", $2);
+-				VERSION=$2
+-			}
+-	
+-			(START==1) && /^\tName=/ {
+-				sub(/Name=/, "", $1);
+-				LIBNAME=$1
+-	
+-				print "mono(" LIBNAME ") = " VERSION
+-				START=0
+-			}
+-		    ') 2> /dev/null
+-	done
+-)
+-
+-PROVIDES=$(
+-	for i in "${monolist[@]}"; do
+-		($monodis --assembly $i | awk '
+-			BEGIN { LIBNAME=""; VERSION=""; }
+-			/^Version:/ { VERSION=$2 }
+-			/^Name:/    { LIBNAME=$2 }
+-			END {
+-				if (VERSION && LIBNAME)
+-					print "mono(" LIBNAME ") = " VERSION
+-			}
+-		    ') 2>/dev/null
+-	done
+-)
+-#
+-# This is a little magic trick to get all REQUIRES that are not
+-# in PROVIDES. While RPM functions correctly when such deps exist,
+-# they make the metadata a bit bloated.
+-#
+-
+-# Filter out dups from both lists
+-REQUIRES=$(echo "$REQUIRES" | sort | uniq)
+-PROVIDES=$(echo "$PROVIDES" | sort | uniq)
+-
+-#
+-# Get a list of elements that exist in exactly one of PROVIDES or REQUIRES
+-#
+-UNIQ=$(echo "$PROVIDES
+-$REQUIRES" | sort | uniq -u)
+-
+-#
+-# Of those, only chose the ones that are in REQUIRES
+-#
+-echo "$UNIQ
+-$REQUIRES" | sort | uniq -d
