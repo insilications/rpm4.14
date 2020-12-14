@@ -1,10 +1,8 @@
+Configure miss: g++ option to enable C++11 features
 Configure miss: 7zip
 Configure miss: 7za
 Configure miss: 7z
 Configure miss: fakechroot
-Configure miss: whether sys/types.h defines makedev
-Configure miss: sys/systemcfg.h usability
-Configure miss: sys/systemcfg.h presence
 Configure miss: sys/systemcfg.h
 Configure miss: if statfs() requires 4 arguments
 Configure miss: mergesort

@@ -4,7 +4,7 @@
 #
 Name     : rpm
 Version  : 4.14.2.1
-Release  : 140
+Release  : 141
 URL      : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Source0  : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Summary  : RPM Package Manager
@@ -16,7 +16,7 @@ Requires: rpm-license = %{version}-%{release}
 Requires: rpm-locales = %{version}-%{release}
 Requires: rpm-man = %{version}-%{release}
 Requires: rpm-python = %{version}-%{release}
-
+Requires: rpm-python3 = %{version}-%{release}
 Requires: unzip
 Requires: zip
 BuildRequires : acl-dev
@@ -41,7 +41,7 @@ BuildRequires : pkgconfig(libzstd)
 BuildRequires : pkgconfig(lmdb)
 BuildRequires : pkgconfig(lua)
 BuildRequires : pkgconfig(nss)
-BuildRequires : pkgconfig(python-3.8)
+BuildRequires : pkgconfig(python-3.9)
 BuildRequires : pkgconfig(zlib)
 BuildRequires : popt-dev
 BuildRequires : python3-dev
@@ -139,7 +139,7 @@ man components for the rpm package.
 %package python
 Summary: python components for the rpm package.
 Group: Default
-
+Requires: rpm-python3 = %{version}-%{release}
 
 %description python
 python components for the rpm package.
@@ -184,14 +184,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1585178425
+export SOURCE_DATE_EPOCH=1607969603
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
 export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
 %reconfigure --disable-static --enable-python \
 --without-lua \
@@ -207,10 +207,10 @@ export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1585178425
+export SOURCE_DATE_EPOCH=1607969603
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rpm
 cp %{_builddir}/rpm-4.14.2.1/COPYING %{buildroot}/usr/share/package-licenses/rpm/41fee52e30855f0bab4a1df3a3aa0147a67f8459
