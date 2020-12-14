@@ -16,7 +16,7 @@ Requires: rpm-license = %{version}-%{release}
 Requires: rpm-locales = %{version}-%{release}
 Requires: rpm-man = %{version}-%{release}
 Requires: rpm-python = %{version}-%{release}
-#Requires: rpm-python3 = %{version}-%{release}
+
 Requires: unzip
 Requires: zip
 BuildRequires : acl-dev
@@ -139,7 +139,7 @@ man components for the rpm package.
 %package python
 Summary: python components for the rpm package.
 Group: Default
-#Requires: rpm-python3 = %{version}-%{release}
+
 
 %description python
 python components for the rpm package.
