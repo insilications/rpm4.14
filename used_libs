@@ -3,12 +3,15 @@ libacl.so.1
 libarchive.so.13
 libbz2.so.1.0
 libc.so.6
+libcap.so.2
 libdb-5.3.so
 libdl.so.2
 libdw.so.1
 libelf.so.1
 liblmdb.so
+liblua.so.5.3
 liblzma.so.5
+libm.so.6
 libmagic.so.1
 libnss3.so
 libpopt.so.0

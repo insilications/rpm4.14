@@ -1,5 +1,6 @@
 --enable-python
---without-lua
+--with-lua
+--with-cap
 --with-acl
 --enable-nls
 --without-internal-beecrypt
