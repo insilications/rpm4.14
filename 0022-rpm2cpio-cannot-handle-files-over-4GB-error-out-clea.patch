@@ -1,0 +1,26 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Panu Matilainen <pmatilai@redhat.com>
+Date: Wed, 2 Jan 2019 11:36:50 +0200
+Subject: [PATCH] rpm2cpio cannot handle files over 4GB, error out cleanly
+ (RhBug:1662481)
+
+---
+ rpm2cpio.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/rpm2cpio.c b/rpm2cpio.c
+index 9949f38..493cfea 100644
+--- a/rpm2cpio.c
++++ b/rpm2cpio.c
+@@ -75,6 +75,11 @@ int main(int argc, char *argv[])
+ 	break;
+     }
+ 
++    if (headerIsEntry(h, RPMTAG_LONGFILESIZES)) {
++	fprintf(stderr, _("files over 4GB not supported by cpio, use rpm2archive instead\n"));
++	exit(EXIT_FAILURE);
++    }
++
+     /* Retrieve payload size and compression type. */
+     {	const char *compr = headerGetString(h, RPMTAG_PAYLOADCOMPRESSOR);
+ 	rpmio_flags = rstrscat(NULL, "r.", compr ? compr : "gzip", NULL);

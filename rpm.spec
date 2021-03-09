@@ -4,7 +4,7 @@
 #
 Name     : rpm
 Version  : 4.14.2.1
-Release  : 145
+Release  : 146
 URL      : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Source0  : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Summary  : RPM Package Manager
@@ -70,6 +70,7 @@ Patch18: 0018-discover-uid0-based-on-usr-share-defaults.patch
 Patch19: 0019-fix-debuginfo-build-id-matching-code.patch
 Patch20: 0020-Skip-HEREDOCs-when-parsing-perl-virtual-Provides.patch
 Patch21: 0021-Disable-mono-fileattrs.patch
+Patch22: 0022-rpm2cpio-cannot-handle-files-over-4GB-error-out-clea.patch
 
 %description
 This is RPM, the RPM Package Manager.
@@ -179,13 +180,14 @@ cd %{_builddir}/rpm-4.14.2.1
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1611620103
+export SOURCE_DATE_EPOCH=1615317920
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -212,7 +214,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1611620103
+export SOURCE_DATE_EPOCH=1615317920
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rpm
 cp %{_builddir}/rpm-4.14.2.1/COPYING %{buildroot}/usr/share/package-licenses/rpm/41fee52e30855f0bab4a1df3a3aa0147a67f8459

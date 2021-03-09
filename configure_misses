@@ -5,5 +5,6 @@ Configure miss: 7z
 Configure miss: fakechroot
 Configure miss: sys/systemcfg.h
 Configure miss: if statfs() requires 4 arguments
+Configure miss: gcc options needed to detect all undeclared functions
 Configure miss: mergesort
 Configure miss: setprogname
