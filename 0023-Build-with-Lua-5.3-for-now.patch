@@ -1,0 +1,28 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Patrick McCarty <patrick.mccarty@intel.com>
+Date: Tue, 23 Feb 2021 05:34:24 +0000
+Subject: [PATCH] Build with Lua 5.3 for now
+
+The rpm version we are currently using, 4.14.2.1, does not build with
+Lua 5.4.x.
+
+Signed-off-by: Patrick McCarty <patrick.mccarty@intel.com>
+---
+ configure.ac | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/configure.ac b/configure.ac
+index 0dcb906..0fe4c20 100644
+--- a/configure.ac
++++ b/configure.ac
+@@ -957,8 +957,8 @@ AC_ARG_WITH([lua], [AS_HELP_STRING([--with-lua], [build with lua support])],
+             [with_lua=yes])
+ 
+ AS_IF([test "$with_lua" != no],[
+-  PKG_CHECK_MODULES([LUA],
+-    [lua >= 5.1],
++  PKG_CHECK_MODULES_STATIC([LUA],
++    [lua53 >= 5.3],
+     [AC_DEFINE(WITH_LUA, 1, [Build with lua support?])],
+     [AC_MSG_ERROR([lua not present (--without-lua to disable)])])
+   AC_SUBST(LUA_CFLAGS)

@@ -3,3 +3,5 @@
 file-dev
 python3-dev
 libcap-dev
+compat-lua-53-dev
+compat-lua-53-staticdev

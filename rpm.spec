@@ -4,7 +4,7 @@
 #
 Name     : rpm
 Version  : 4.14.2.1
-Release  : 146
+Release  : 147
 URL      : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Source0  : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Summary  : RPM Package Manager
@@ -24,6 +24,8 @@ BuildRequires : automake
 BuildRequires : automake-dev
 BuildRequires : bison
 BuildRequires : bzip2-dev
+BuildRequires : compat-lua-53-dev
+BuildRequires : compat-lua-53-staticdev
 BuildRequires : db-dev
 BuildRequires : doxygen
 BuildRequires : elfutils-dev
@@ -40,7 +42,6 @@ BuildRequires : pkgconfig(dbus-1)
 BuildRequires : pkgconfig(libarchive)
 BuildRequires : pkgconfig(libzstd)
 BuildRequires : pkgconfig(lmdb)
-BuildRequires : pkgconfig(lua)
 BuildRequires : pkgconfig(nss)
 BuildRequires : pkgconfig(python-3.9)
 BuildRequires : pkgconfig(zlib)
@@ -71,6 +72,7 @@ Patch19: 0019-fix-debuginfo-build-id-matching-code.patch
 Patch20: 0020-Skip-HEREDOCs-when-parsing-perl-virtual-Provides.patch
 Patch21: 0021-Disable-mono-fileattrs.patch
 Patch22: 0022-rpm2cpio-cannot-handle-files-over-4GB-error-out-clea.patch
+Patch23: 0023-Build-with-Lua-5.3-for-now.patch
 
 %description
 This is RPM, the RPM Package Manager.
@@ -181,13 +183,14 @@ cd %{_builddir}/rpm-4.14.2.1
 %patch20 -p1
 %patch21 -p1
 %patch22 -p1
+%patch23 -p1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1615317920
+export SOURCE_DATE_EPOCH=1615400202
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -214,7 +217,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1615317920
+export SOURCE_DATE_EPOCH=1615400202
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/rpm
 cp %{_builddir}/rpm-4.14.2.1/COPYING %{buildroot}/usr/share/package-licenses/rpm/41fee52e30855f0bab4a1df3a3aa0147a67f8459

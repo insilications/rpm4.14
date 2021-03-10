@@ -9,7 +9,6 @@ libdl.so.2
 libdw.so.1
 libelf.so.1
 liblmdb.so
-liblua.so.5.3
 liblzma.so.5
 libm.so.6
 libmagic.so.1

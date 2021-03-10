@@ -20,3 +20,4 @@
 0020-Skip-HEREDOCs-when-parsing-perl-virtual-Provides.patch
 0021-Disable-mono-fileattrs.patch
 0022-rpm2cpio-cannot-handle-files-over-4GB-error-out-clea.patch
+0023-Build-with-Lua-5.3-for-now.patch
