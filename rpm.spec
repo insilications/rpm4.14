@@ -4,15 +4,14 @@
 #
 Name     : rpm
 Version  : 4.14.2.1
-Release  : 147
+Release  : 151
 URL      : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Source0  : http://ftp.rpm.org/releases/rpm-4.14.x/rpm-4.14.2.1.tar.bz2
 Summary  : RPM Package Manager
 Group    : Development/Tools
-License  : GPL-2.0 GPL-2.0+
+License  : GPL-2.0+
 Requires: rpm-bin = %{version}-%{release}
 Requires: rpm-lib = %{version}-%{release}
-Requires: rpm-license = %{version}-%{release}
 Requires: rpm-locales = %{version}-%{release}
 Requires: rpm-man = %{version}-%{release}
 Requires: rpm-python = %{version}-%{release}
@@ -73,6 +72,7 @@ Patch20: 0020-Skip-HEREDOCs-when-parsing-perl-virtual-Provides.patch
 Patch21: 0021-Disable-mono-fileattrs.patch
 Patch22: 0022-rpm2cpio-cannot-handle-files-over-4GB-error-out-clea.patch
 Patch23: 0023-Build-with-Lua-5.3-for-now.patch
+Patch24: 0001-rpmbuild-bb-shortcircuit.patch
 
 %description
 This is RPM, the RPM Package Manager.
@@ -81,7 +81,6 @@ The latest releases are always available at:
 %package bin
 Summary: bin components for the rpm package.
 Group: Binaries
-Requires: rpm-license = %{version}-%{release}
 
 %description bin
 bin components for the rpm package.
@@ -110,18 +109,9 @@ extras components for the rpm package.
 %package lib
 Summary: lib components for the rpm package.
 Group: Libraries
-Requires: rpm-license = %{version}-%{release}
 
 %description lib
 lib components for the rpm package.
-
-
-%package license
-Summary: license components for the rpm package.
-Group: Default
-
-%description license
-license components for the rpm package.
 
 
 %package locales
@@ -184,22 +174,24 @@ cd %{_builddir}/rpm-4.14.2.1
 %patch21 -p1
 %patch22 -p1
 %patch23 -p1
+%patch24 -p1
 
 %build
-export http_proxy=http://127.0.0.1:9/
-export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost,127.0.0.1,0.0.0.0
+unset http_proxy
+unset https_proxy
+unset no_proxy
+export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1615400202
+export SOURCE_DATE_EPOCH=1618887524
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
-export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
-export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
-export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-strong -mzero-caller-saved-regs=used "
-%reconfigure --disable-static --enable-python \
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=16 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FCFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=16 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=16 -fstack-protector-strong -mzero-caller-saved-regs=used "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=16 -fstack-protector-strong -mzero-caller-saved-regs=used "
+%reconfigure --enable-python \
 --with-lua \
 --with-cap \
 --with-acl \
@@ -209,18 +201,18 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 -fstack-protector-stron
 --disable-inhibit-plugin
 make  %{?_smp_mflags}
 
+
 %check
 export LANG=C.UTF-8
-export http_proxy=http://127.0.0.1:9/
-export https_proxy=http://127.0.0.1:9/
-export no_proxy=localhost,127.0.0.1,0.0.0.0
+unset http_proxy
+unset https_proxy
+unset no_proxy
+export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 make %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1615400202
+export SOURCE_DATE_EPOCH=1618887524
 rm -rf %{buildroot}
-mkdir -p %{buildroot}/usr/share/package-licenses/rpm
-cp %{_builddir}/rpm-4.14.2.1/COPYING %{buildroot}/usr/share/package-licenses/rpm/41fee52e30855f0bab4a1df3a3aa0147a67f8459
 %make_install
 %find_lang rpm
 ## Remove excluded files
@@ -412,6 +404,10 @@ rm -f %{buildroot}/usr/lib/rpm/fileattrs/perllib.attr
 /usr/lib64/librpmio.so
 /usr/lib64/librpmsign.so
 /usr/lib64/pkgconfig/rpm.pc
+/usr/lib64/rpm-plugins/ima.so
+/usr/lib64/rpm-plugins/ldconfig.so
+/usr/lib64/rpm-plugins/prioreset.so
+/usr/lib64/rpm-plugins/syslog.so
 
 %files extras
 %defattr(-,root,root,-)
@@ -427,14 +423,6 @@ rm -f %{buildroot}/usr/lib/rpm/fileattrs/perllib.attr
 /usr/lib64/librpmio.so.8.1.0
 /usr/lib64/librpmsign.so.8
 /usr/lib64/librpmsign.so.8.1.0
-/usr/lib64/rpm-plugins/ima.so
-/usr/lib64/rpm-plugins/ldconfig.so
-/usr/lib64/rpm-plugins/prioreset.so
-/usr/lib64/rpm-plugins/syslog.so
-
-%files license
-%defattr(0644,root,root,0755)
-/usr/share/package-licenses/rpm/41fee52e30855f0bab4a1df3a3aa0147a67f8459
 
 %files man
 %defattr(0644,root,root,0755)

@@ -1,10 +1,10 @@
-Configure miss: g++ option to enable C++11 features
-Configure miss: 7zip
-Configure miss: 7za
 Configure miss: 7z
+Configure miss: 7za
+Configure miss: 7zip
 Configure miss: fakechroot
-Configure miss: sys/systemcfg.h
-Configure miss: if statfs() requires 4 arguments
+Configure miss: g++ option to enable C++11 features
 Configure miss: gcc options needed to detect all undeclared functions
+Configure miss: if statfs() requires 4 arguments
 Configure miss: mergesort
 Configure miss: setprogname
+Configure miss: sys/systemcfg.h
